@@ -3,15 +3,15 @@ package src;
 import java.io.IOException;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class SceneSwitcher {
     public void switchScene(String scenePath) throws IOException{
-        Parent parent = FXMLLoader.load(SceneSwitcher.class.getResource(scenePath));
-        Scene scene = new Scene(parent);
-        Stage stage = Main.rootStage;
+        Pane gamePane = FXMLLoader.load(getClass().getResource(scenePath));
+        Stage stage = new Stage();
+        Scene scene = new Scene(gamePane);
         stage.setScene(scene);
         stage.show();
     }

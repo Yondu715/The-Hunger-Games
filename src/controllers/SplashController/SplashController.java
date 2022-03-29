@@ -7,46 +7,49 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import src.SceneSwitcher;
 
 public class SplashController implements Initializable{
     @FXML
+    Pane splashPane;
+    Pane gamePane;
+    @FXML
     ProgressBar progress;
     @FXML
     ImageView image;
+    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        image.setImage(new Image(getClass().getResourceAsStream("..\\..\\resources\\index.jpg")));
-        new SplashScreen().start();  
+        splash();  
     }
-    
-    class SplashScreen extends Thread{
-        public void run(){
-            try {
-                for (int i = 1; i <= 100; i++){
-                    final double loaded = i;
-                    Thread.sleep(25);
-                    Platform.runLater(new Runnable() {
-                        public void run(){
-                            progress.setProgress(loaded/100);
-                        }
-                    });
-                }
+
+    private void splash(){
+        new Thread(){
+            public void run(){
+                try {
+                    Thread.sleep(1000);
+                    for (int i = 1; i <= 100; i++){
+                        final double loaded = i;
+                        Thread.sleep(25);
+                        Platform.runLater(new Runnable() {
+                            public void run(){
+                                progress.setProgress(loaded/100);
+                            }
+                        });
+                    }
+                } catch (Exception e) {}
                 Platform.runLater(new Runnable() {
-                    public void run() {
+                    public void run(){
                         try {
                             new SceneSwitcher().switchScene("\\resources\\game.fxml");
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } 
+                            splashPane.getScene().getWindow().hide();
+                        } catch (IOException e1) {} 
                     }
                 });
-                
-            } catch (InterruptedException e) { e.printStackTrace();}
-        }
+            }
+        }.start();;
     }
-    
 }

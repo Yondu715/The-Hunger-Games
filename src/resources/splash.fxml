@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.SplashController.SplashController">
+<AnchorPane fx:id="splashPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.SplashController.SplashController">
    <children>
-      <ImageView fx:id="image" fitHeight="400.0" fitWidth="600.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
-      <ProgressBar fx:id="progress" layoutX="200.0" layoutY="312.0" prefWidth="200.0" progress="0.0" />
+      <ProgressBar fx:id="progress" layoutX="200.0" layoutY="300.0" prefWidth="200.0" progress="0.0" />
    </children>
-</Pane>
+</AnchorPane>
