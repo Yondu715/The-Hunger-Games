@@ -1,7 +1,7 @@
 package src;
-
 import java.io.IOException;
 
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -12,7 +12,15 @@ public class SceneSwitcher {
         Pane gamePane = FXMLLoader.load(getClass().getResource(scenePath));
         Stage stage = new Stage();
         Scene scene = new Scene(gamePane);
+        scene.getRoot().requestFocus();
         stage.setScene(scene);
+        stage.centerOnScreen();
+        if (scenePath == "\\resources\\game.fxml"){
+            stage.setOnCloseRequest(event -> {
+                Platform.exit();
+                System.exit(0);
+            });
+        }
         stage.show();
     }
 }

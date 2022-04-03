@@ -1,4 +1,4 @@
-package src.controllers.SplashController;
+package src.game;
 
 import java.io.IOException;
 import java.net.URL;
