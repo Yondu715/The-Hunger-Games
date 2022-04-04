@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.Pane?>
-
+<?import javafx.scene.text.Font?>
 
 <Pane fx:id="gamePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1020.0" style="-fx-view-order: 0;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.GameController">
    <children>
-      <Label fx:id="time" layoutX="492.0" layoutY="14.0" prefHeight="19.0" prefWidth="37.0" text="60" />
+      <Label fx:id="time" layoutX="492.0" layoutY="9.0" prefHeight="30.0" prefWidth="31.0" text="60">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <ProgressBar fx:id="playerHp" layoutX="14.0" layoutY="15.0" prefWidth="200.0" progress="0.0" />
+      <Label fx:id="playerScore" layoutX="241.0" layoutY="9.0" text="Score: ">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
