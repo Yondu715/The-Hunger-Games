@@ -11,15 +11,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 
 public class GameController implements Initializable {
 
     @FXML
-    Pane gamePane;
-    static Pane rootGame = new Pane();
+    AnchorPane gamePane;
+    static AnchorPane rootGame = new AnchorPane();
+    @FXML
+    Rectangle topFrame;
     @FXML
     Label time, playerScore;
     @FXML
@@ -27,8 +30,8 @@ public class GameController implements Initializable {
     
     public static ArrayList<Food> foods = new ArrayList<>();
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
-    Character person = new Character(30, 30);
-    AnimationTimer timer = new AnimationTimer() {
+    Character person = new Character(50, 50);
+    AnimationTimer timer = new AnimationTimer() {        
         @Override
         public void handle(long arg0) {
             update(); 
@@ -41,11 +44,10 @@ public class GameController implements Initializable {
         rootGame.getChildren().add(person);
         playerHp.setProgress(person.hp);
         playerScore.setText(playerScore.getText() + "0");
-        time.setText("60");
         rootGame.setOnKeyPressed(event -> keys.put(event.getCode(), true));
         rootGame.setOnKeyReleased(event -> keys.put(event.getCode(), false));
         timer.start();
-        change_time();
+        change_time(); 
     }
 
     public boolean isPressed(KeyCode key){
@@ -54,32 +56,32 @@ public class GameController implements Initializable {
 
     public void checkMove(){
         if (isPressed(KeyCode.UP) && (isPressed(KeyCode.LEFT))){
-            person.moveY(1);
-            person.moveX(-1);
+            person.moveY(-0.68);
+            person.moveX(-0.68);
         }
         else if (isPressed(KeyCode.UP) && (isPressed(KeyCode.RIGHT))){
-            person.moveY(1);
-            person.moveX(1);
+            person.moveY(-0.7);
+            person.moveX(0.7);
         }
         else if (isPressed(KeyCode.DOWN) && (isPressed(KeyCode.LEFT))){
-            person.moveY(-1);
-            person.moveX(-1);
+            person.moveY(0.7);
+            person.moveX(-0.7);
         }
         else if (isPressed(KeyCode.DOWN) && (isPressed(KeyCode.RIGHT))){
-            person.moveY(-1);
-            person.moveX(1);
+            person.moveY(0.7);
+            person.moveX(0.7);
         }
         else if (isPressed(KeyCode.UP)){
-            person.moveY(1);
+            person.moveY(-1.0);
         }
         else if (isPressed(KeyCode.DOWN)){
-            person.moveY(-1);
+            person.moveY(1.0);
         }
         else if (isPressed(KeyCode.LEFT)){
-            person.moveX(-1);
+            person.moveX(-1.0);
         }
         else if (isPressed(KeyCode.RIGHT)){
-            person.moveX(1);
+            person.moveX(1.0);
         }
     }
 
@@ -87,6 +89,7 @@ public class GameController implements Initializable {
         person.get_damage();
         if (!person.isAlive()){
             rootGame.getChildren().remove(person);
+            timer.stop();
         }
     }
 
@@ -96,8 +99,18 @@ public class GameController implements Initializable {
         }
     }
 
+    public void check_collision(){
+        double y = person.getPosY();
+        double x = person.getPosX();
+        if (y > topFrame.getHeight() && y < (gamePane.getHeight() - person.getCharacterHeight()) && x > 0 && x < (gamePane.getWidth()) - person.getCharacterWidth()) checkMove();
+        else if (y <= topFrame.getHeight()) person.moveY(0.1);
+        else if (y >= (gamePane.getHeight() - person.getCharacterHeight())) person.moveY(-0.1);
+        else if (x >= gamePane.getWidth() - person.getCharacterWidth()) person.moveX(-0.1);
+        else if (x <= 0) person.moveX(0.1);
+    }
+
     public void update(){
-        checkMove();
+        check_collision();
         check_alive_players();
         check_time();
         food_spawn();
@@ -106,9 +119,8 @@ public class GameController implements Initializable {
 
     public void food_spawn(){
         int random = (int)Math.floor(Math.random()*300);
-        double pos_x = Math.floor(Math.random()*rootGame.getWidth());
-        System.out.println(rootGame.getHeight());
-        double pos_y = Math.floor(Math.random()*(rootGame.getHeight() - 150));
+        double pos_x = Math.floor(Math.random() * (gamePane.getWidth() - 2 * gamePane.getPadding().getRight()) + gamePane.getPadding().getLeft());
+        double pos_y = Math.floor(Math.random() * (gamePane.getHeight() - gamePane.getPadding().getBottom() - gamePane.getPadding().getTop()) + gamePane.getPadding().getTop());
         if (random == 7){
             Food food = new Food(pos_x, pos_y, 7, Color.RED);
             foods.add(food);

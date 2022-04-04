@@ -7,14 +7,17 @@ public class Character extends Rectangle{
     int score = 0;
     double pos_x;
     double pos_y;
-    static int width = 32;
-    static int height = 32;
+    int width = 32;
+    int height = 32;
     Food removeFood = null;
 
     public Character(double pos_x, double pos_y){
-        super(pos_x, pos_y, width, height);
+        setWidth(width);
+        setHeight(height);
+        setX(pos_x);
+        setY(pos_y);
         this.pos_x = pos_x;
-        this.pos_y = pos_y;
+        this.pos_y = pos_y;        
     }
 
     public double getPosX(){
@@ -23,6 +26,14 @@ public class Character extends Rectangle{
 
     public double getPosY(){
         return this.pos_y;
+    }
+
+    public int getCharacterWidth(){
+        return this.width;
+    }
+
+    public int getCharacterHeight(){
+        return this.height;
     }
 
     public boolean isAlive(){
@@ -34,13 +45,13 @@ public class Character extends Rectangle{
 
     public void get_damage(){
         if (this.hp > 0){
-            this.hp -= 0.02;
+            this.hp -= 0.05;
         }
         String hp = String.format("%.2f", this.hp).replace(",", ".");
         this.hp = Double.parseDouble(hp);  
     }
 
-    public void moveX(int x){
+    public void moveX(Double x){
         boolean duration_x = x>0 ? true:false;
         if (duration_x) this.setTranslateX(this.getTranslateX() + Math.abs(x));
         else this.setTranslateX(this.getTranslateX() - Math.abs(x));
@@ -48,19 +59,19 @@ public class Character extends Rectangle{
         isFoodEat();
     }
 
-    public void moveY(int y){
+    public void moveY(Double y){
         boolean duration_y = y>0 ? true:false;
-        if (duration_y) this.setTranslateY(this.getTranslateY() - Math.abs(y));
-        else this.setTranslateY(this.getTranslateY() + Math.abs(y));
+        if (duration_y) this.setTranslateY(this.getTranslateY() + Math.abs(y));
+        else this.setTranslateY(this.getTranslateY() - Math.abs(y));
         this.pos_y += y;
         isFoodEat();
     }
 
     public void isFoodEat(){
-        
         GameController.foods.forEach((food) -> {
             if (this.getBoundsInParent().intersects(food.getBoundsInParent())){
                 this.hp += food.food_value;
+                if (this.hp > 100) this.hp = 100;
                 this.score++;
                 removeFood = food;
             }
