@@ -179,7 +179,7 @@ public class MainMenu extends Application {
 
             getChildren().addAll(c1, text, c2);
             setActive(false);
-            setOnActivate(() -> System.out.println(name + " activated"));
+            setOnActivate(() -> System.out.println(name + " activat"));
         }
 
         public void setActive(boolean b) {
