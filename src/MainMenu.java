@@ -59,31 +59,21 @@ public class MainMenu extends Application {
         menuBox = new VBox(10,
                 new MenuItem("ONE PLAYER"),
                 new MenuItem("TWO PLAYER"),
-                new MenuItem("ONLINE"),
-                new MenuItem("FACTION"),
-                new MenuItem("KRYPT"),
+                new MenuItem("\n" + "LOGIN"),
                 new MenuItem("OPTIONS"),
-                new MenuItem("EXTRAS*"),
                 itemExit);
         menuBox.setAlignment(Pos.TOP_CENTER);
         menuBox.setTranslateX(360);
         menuBox.setTranslateY(300);
 
-        Text about = new Text("MKXMenuApp\n\tby\n    AlmasB");
-        about.setTranslateX(50);
-        about.setTranslateY(500);
-        about.setFill(Color.WHITE);
-        about.setFont(FONT);
-        about.setOpacity(0.2);
-
         getMenuItem(0).setActive(true);
 
-        root.getChildren().addAll(bg, hbox, menuBox, about);
+        root.getChildren().addAll(bg, hbox, menuBox);
         return root;
     }
 
     private Node createLeftContent() {
-        final Text inbox = new Text("Петруха");
+        final Text inbox = new Text("Peter");
         inbox.setFill(Color.WHITE);
 
         bgThread.scheduleAtFixedRate(() -> Platform.runLater(() -> {
@@ -96,7 +86,7 @@ public class MainMenu extends Application {
             ParallelTransition pt = new ParallelTransition(tt, ft);
             pt.setOnFinished(e -> {
                 inbox.setTranslateY(-150);
-                inbox.setText("Петруха");
+                inbox.setText("Peter");
 
                 TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.5), inbox);
                 tt2.setToY(0);
@@ -135,7 +125,7 @@ public class MainMenu extends Application {
     }
 
     private Node createRightContent() {
-        String title = "Максимка";
+        String title = "Maxim";
         HBox letters = new HBox(0);
         letters.setAlignment(Pos.CENTER);
         for (int i = 0; i < title.length(); i++) {
