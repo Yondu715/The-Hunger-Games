@@ -1,12 +1,9 @@
 package src;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -29,14 +26,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class MainMenu extends Application {
 
     private static final Font FONT = Font.font("", FontWeight.BOLD, 18);
 
     private VBox menuBox;
     private int currentItem = 0;
-
-    private int messages = 0;
 
     private final ScheduledExecutorService bgThread = Executors.newSingleThreadScheduledExecutor();
 
@@ -84,7 +83,7 @@ public class MainMenu extends Application {
     }
 
     private Node createLeftContent() {
-        final Text inbox = new Text("You have " + messages + " new message(-s)");
+        final Text inbox = new Text("Петруха");
         inbox.setFill(Color.WHITE);
 
         bgThread.scheduleAtFixedRate(() -> Platform.runLater(() -> {
@@ -97,7 +96,7 @@ public class MainMenu extends Application {
             ParallelTransition pt = new ParallelTransition(tt, ft);
             pt.setOnFinished(e -> {
                 inbox.setTranslateY(-150);
-                inbox.setText("You have " + ++messages + " new message(-s)");
+                inbox.setText("Петруха");
 
                 TranslateTransition tt2 = new TranslateTransition(Duration.seconds(0.5), inbox);
                 tt2.setToY(0);
@@ -115,7 +114,7 @@ public class MainMenu extends Application {
     }
 
     private Node createMiddleContent() {
-        String title = "MKX Menu App";
+        String title = "The-Hunger-Games";
         HBox letters = new HBox(0);
         letters.setAlignment(Pos.CENTER);
         for (int i = 0; i < title.length(); i++) {
@@ -136,7 +135,7 @@ public class MainMenu extends Application {
     }
 
     private Node createRightContent() {
-        String title = "Please Subscribe :)";
+        String title = "Максимка";
         HBox letters = new HBox(0);
         letters.setAlignment(Pos.CENTER);
         for (int i = 0; i < title.length(); i++) {

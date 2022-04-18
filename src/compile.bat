@@ -4,3 +4,4 @@ javac --module-path .\Libs\javafx\lib --add-modules=javafx.controls,javafx.fxml 
 javac --module-path .\Libs\javafx\lib --add-modules=javafx.controls,javafx.fxml --class-path "..;.;" .\game\food.java
 javac --module-path .\Libs\javafx\lib --add-modules=javafx.controls,javafx.fxml --class-path "..;.;" .\game\gamecontroller.java
 javac --module-path .\Libs\javafx\lib --add-modules=javafx.controls,javafx.fxml --class-path "..;.;" .\Main.java
+javac --module-path .\Libs\javafx\lib --add-modules=javafx.controls,javafx.fxml --class-path "..;.;" .\MainMenu.java
