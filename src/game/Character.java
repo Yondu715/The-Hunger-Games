@@ -3,13 +3,12 @@ package src.game;
 import javafx.scene.shape.Rectangle;
 
 public class Character extends Rectangle{
-    double hp = 100;
-    int score = 0;
-    double pos_x;
-    double pos_y;
-    int width = 32;
-    int height = 32;
-    Food removeFood = null;
+    private double hp = 100;
+    private int score = 0;
+    private double pos_x;
+    private double pos_y;
+    private int width = 32;
+    private int height = 32;
 
     public Character(double pos_x, double pos_y){
         setWidth(width);
@@ -36,8 +35,32 @@ public class Character extends Rectangle{
         return this.height;
     }
 
+    public double getHp(){
+        return this.hp;
+    }
+
+    public int getScore(){
+        return this.score;
+    }
+
+    public void setPosX(double pos_x){
+        this.pos_x = pos_x;
+    }
+
+    public void setPosY(double pos_y){
+        this.pos_y = pos_y;
+    }
+
+    public void setScore(int score){
+        this.score = score;
+    }
+
+    public void setHp(double hp){
+        this.hp = hp;
+    }
+
     public boolean isAlive(){
-        if (hp <= 0){
+        if (this.hp <= 0){
             return false;
         }
         return true;
@@ -56,7 +79,6 @@ public class Character extends Rectangle{
         if (duration_x) this.setTranslateX(this.getTranslateX() + Math.abs(x));
         else this.setTranslateX(this.getTranslateX() - Math.abs(x));
         this.pos_x += x;
-        isFoodEat();
     }
 
     public void moveY(Double y){
@@ -64,19 +86,5 @@ public class Character extends Rectangle{
         if (duration_y) this.setTranslateY(this.getTranslateY() + Math.abs(y));
         else this.setTranslateY(this.getTranslateY() - Math.abs(y));
         this.pos_y += y;
-        isFoodEat();
-    }
-
-    public void isFoodEat(){
-        GameController.foods.forEach((food) -> {
-            if (this.getBoundsInParent().intersects(food.getBoundsInParent())){
-                this.hp += food.food_value;
-                if (this.hp > 100) this.hp = 100;
-                this.score++;
-                removeFood = food;
-            }
-        });
-        GameController.foods.remove(removeFood);
-        GameController.rootGame.getChildren().remove(removeFood);
     }
 }

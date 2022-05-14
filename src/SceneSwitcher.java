@@ -12,15 +12,20 @@ public class SceneSwitcher {
         AnchorPane gamePane = FXMLLoader.load(getClass().getResource(scenePath));
         Stage stage = new Stage();
         Scene scene = new Scene(gamePane);
+
         scene.getRoot().requestFocus();
         stage.setScene(scene);
+        stage.setTitle("The Hunger Games");
         stage.centerOnScreen();
+        stage.setMinHeight(400);
+        stage.setMinWidth(1020);
         if (scenePath == "\\resources\\game.fxml"){
             stage.setOnCloseRequest(event -> {
                 Platform.exit();
                 System.exit(0);
             });
         }
+        
         stage.show();
     }
 }
