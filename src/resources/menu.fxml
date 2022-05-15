@@ -1,21 +1,124 @@
-<<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-        <?import javafx.scene.layout.VBox?>
-        <?import javafx.scene.control.TextField?>
-        <?import javafx.scene.control.Label?>
-        <?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox prefHeight="100.0" prefWidth="300.0"
-      xmlns="http://javafx.com/javafx/8.0.65"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.almasb.equations.EquationsController">
-
-<padding>
-    <Insets topRightBottomLeft="25" />
-</padding>
-
-<TextField fx:id="fieldInput" onAction="#solve" />
-
-<Label fx:id="labelOutput" />
-
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.MenuController">
+   <children>
+      <Pane style="-fx-background-color: #FFF; -fx-background-radius: 10;">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="530.0" prefWidth="207.0" spacing="40.0" style="-fx-background-color: #E5E5E5;">
+               <children>
+                  <VBox prefHeight="0.0" prefWidth="207.0" />
+                  <ImageView fitHeight="144.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/logo.png" />
+                     </image>
+                  </ImageView>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                     <children>
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" stylesheets="@utils/fullpackstyling.css" text="Let's start">
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/play.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" stylesheets="@utils/fullpackstyling.css" text="Authorization">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/avt.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" stylesheets="@utils/fullpackstyling.css" text="Rating">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/stat.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" stylesheets="@utils/fullpackstyling.css" text="Setttings">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icons/set.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="0.0" prefWidth="207.0" />
+                  <VBox alignment="BASELINE_CENTER" prefHeight="35.0" prefWidth="207.0">
+                     <children>
+                        <Label text="* No connection " />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+      <VBox alignment="CENTER" layoutX="207.0" prefHeight="530.0" prefWidth="762.0" style="-fx-background-color: linear-gradient(to bottom, #9933ff 0%, #ff99cc 100%);">
+         <children>
+            <Label text="The Hunger Games">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+            <Label text="&quot;Run or Die&quot;">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER" prefHeight="313.0" prefWidth="762.0">
+               <children>
+                  <Label text="Rules of the game">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label ellipsisString="" prefHeight="102.0" prefWidth="474.0" text="You have a limited supply of life, which is decreasing every second. You can replenish it by collecting food. But not everything is so simple. Your opponent is in the same conditions. &quot;Happy hunger games and may the odds be ever in your favor&quot;." textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="63.0" prefWidth="762.0">
+               <children>
+                  <Label text="Our GitHub : https://github.com/MaximVorobev/The-Hunger-Games" />
+               </children>
+            </VBox>
+         </children></VBox>
+   </children>
+</AnchorPane>
