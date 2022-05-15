@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,13 +9,17 @@
 
 <AnchorPane fx:id="gamePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.GameController">
    <children>
-      <Rectangle fx:id="topFrame" arcWidth="5.0" fill="#781fff" height="35.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1020.0" />
+      <Rectangle fx:id="topFrame" arcWidth="5.0" fill="#91b8ff" height="35.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1020.0" />
+      <ProgressBar fx:id="playerHp" layoutX="14.0" layoutY="9.0" prefHeight="18.0" prefWidth="190.0" progress="1.0" style="-fx-accent: #9acd32; -fx-control-inner-background: #91b8ff; -fx-text-box-border: #91b8ff; -fx-background-color: #91b8ff;">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </ProgressBar>
       <Label fx:id="playerScore" layoutX="219.0" prefHeight="35.0" prefWidth="100.0" text="Score: 0">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <ProgressBar fx:id="playerHp" layoutX="14.0" layoutY="9.0" prefHeight="18.0" prefWidth="180.0" progress="0.0" />
       <Label fx:id="clock" alignment="CENTER" contentDisplay="CENTER" layoutX="510.0" prefHeight="35.0" prefWidth="45.0" text="120">
          <font>
             <Font size="20.0" />

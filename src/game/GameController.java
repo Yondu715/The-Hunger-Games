@@ -2,7 +2,9 @@ package src.game;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
@@ -17,13 +19,13 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class GameController implements Initializable {
 
     @FXML
     AnchorPane gamePane;
-    static AnchorPane rootGame = new AnchorPane();
     @FXML
     Rectangle topFrame;
     @FXML
@@ -31,24 +33,23 @@ public class GameController implements Initializable {
     @FXML
     ProgressBar playerHp;
 
-    Thread t;
-    Food removeFood = null;
-    public static ArrayList<Food> foods = new ArrayList<>();
+    private Thread clockThread;
+    private Food removeFood = null;
+    private List<Paint> playerColors = Arrays.asList(Color.BLACK, Color.BLUE, Color.AQUA, Color.GREEN);
+    private ArrayList<Food> foods = new ArrayList<>();
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
-    Character person = new Character(50, 50);
-    AnimationTimer timer;
+    private Character player;
+    private AnimationTimer updateTimer;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        rootGame = gamePane;
-        rootGame.getChildren().add(person);
-        playerHp.setProgress(person.getHp());
-        rootGame.setOnKeyPressed(event -> keys.put(event.getCode(), true));
-        rootGame.setOnKeyReleased(event -> keys.put(event.getCode(), false));
-        rootGame.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
+        gamePane.setOnKeyPressed(event -> keys.put(event.getCode(), true));
+        gamePane.setOnKeyReleased(event -> keys.put(event.getCode(), false));
+
+        gamePane.layoutBoundsProperty().addListener(new ChangeListener<Bounds>() {
             @Override
             public void changed(ObservableValue<? extends Bounds> observableValue, Bounds bounds, Bounds newBounds){
-                topFrame.setWidth(rootGame.getWidth());
+                topFrame.setWidth(gamePane.getWidth());
                 if (bounds.getHeight() != 0) {
                     topFrame.setHeight(topFrame.getHeight() + (newBounds.getHeight() - bounds.getHeight()) * 0.01);
                 }
@@ -56,27 +57,29 @@ public class GameController implements Initializable {
                 clock.setMinHeight(topFrame.getHeight());
                 playerHp.setMinWidth(topFrame.getWidth() * 0.175);
                 playerHp.setMinHeight(topFrame.getHeight() / 2);
-                playerScore.setLayoutX(playerHp.getMinWidth() + 25);
+                playerScore.setLayoutX(playerHp.getMinWidth() + 40.5);
                 playerScore.setMinHeight(topFrame.getHeight());
             }
         });
-        timer = new AnimationTimer() {        
+
+        updateTimer = new AnimationTimer() {        
             @Override
             public void handle(long arg0) {
                 update(); 
             }
         };
-        timer.start();
+        player_spawn();
+        updateTimer.start();
         change_time(); 
     }
 
     public void update(){
         check_move();
+        isFoodEat();
         check_alive_players();
         check_time();
         food_spawn();
         setHpAndScore();
-        isFoodEat();
     }
 
     public boolean isPressed(KeyCode key){
@@ -84,78 +87,92 @@ public class GameController implements Initializable {
     }
 
     public void check_move(){
-        double y = person.getPosY();
-        double x = person.getPosX();
+        double y = player.getPosY();
+        double x = player.getPosX();
         if (isPressed(KeyCode.UP) && (isPressed(KeyCode.LEFT)) && (y > topFrame.getHeight()) && (x > 0)){
-            person.moveY(-1.);
-            person.moveX(-1.);
+            player.moveY(-1.);
+            player.moveX(-1.);
         }
-        else if (isPressed(KeyCode.UP) && (isPressed(KeyCode.RIGHT)) && (y > topFrame.getHeight()) && (x < (gamePane.getWidth() - person.getCharacterWidth()))){
-            person.moveY(-1.);
-            person.moveX(1.);
+        else if (isPressed(KeyCode.UP) && (isPressed(KeyCode.RIGHT)) && (y > topFrame.getHeight()) && (x < (gamePane.getWidth() - player.getCharacterWidth()))){
+            player.moveY(-1.);
+            player.moveX(1.);
         }
-        else if (isPressed(KeyCode.DOWN) && (isPressed(KeyCode.LEFT)) && (y < (gamePane.getHeight() - person.getCharacterHeight())) && (x > 0) ){
-            person.moveY(1.);
-            person.moveX(-1.);
+        else if (isPressed(KeyCode.DOWN) && (isPressed(KeyCode.LEFT)) && (y < (gamePane.getHeight() - player.getCharacterHeight())) && (x > 0) ){
+            player.moveY(1.);
+            player.moveX(-1.);
         }
-        else if (isPressed(KeyCode.DOWN) && (isPressed(KeyCode.RIGHT)) && (y < (gamePane.getHeight() - person.getCharacterHeight())) && (x < (gamePane.getWidth() - person.getCharacterWidth()))){
-            person.moveY(1.);
-            person.moveX(1.);
+        else if (isPressed(KeyCode.DOWN) && (isPressed(KeyCode.RIGHT)) && (y < (gamePane.getHeight() - player.getCharacterHeight())) && (x < (gamePane.getWidth() - player.getCharacterWidth()))){
+            player.moveY(1.);
+            player.moveX(1.);
         }
         else if (isPressed(KeyCode.UP) && (y > topFrame.getHeight())){
-            person.moveY(-1.4);
+            player.moveY(-1.4);
         }
-        else if (isPressed(KeyCode.DOWN) && (y < (gamePane.getHeight() - person.getCharacterHeight()))){
-            person.moveY(1.4);
+        else if (isPressed(KeyCode.DOWN) && (y < (gamePane.getHeight() - player.getCharacterHeight()))){
+            player.moveY(1.4);
         }
         else if (isPressed(KeyCode.LEFT) && (x > 0)){
-            person.moveX(-1.4);
+            player.moveX(-1.4);
         }
-        else if (isPressed(KeyCode.RIGHT) && (x < (gamePane.getWidth() - person.getCharacterWidth()))){
-            person.moveX(1.4);
+        else if (isPressed(KeyCode.RIGHT) && (x < (gamePane.getWidth() - player.getCharacterWidth()))){
+            player.moveX(1.4);
         }
     }
 
     public void check_alive_players(){
-        person.get_damage();
-        if (!person.isAlive()){
-            rootGame.getChildren().remove(person);
-            timer.stop();
-            t.interrupt();
+        player.get_damage();
+        if (!player.isAlive()){
+            gamePane.getChildren().remove(player);
+            updateTimer.stop();
+            clockThread.interrupt();
         }
     }
 
     public void check_time(){
         if (clock.getText().equals("0")){
-            timer.stop();
+            updateTimer.stop();
         }
     }
 
+    public void player_spawn(){
+        int playerWidth = 32;
+        int playerHeight = 32;
+        double pos_x = Math.floor(playerWidth + Math.random() * (gamePane.getPrefWidth() - playerWidth));
+        double pos_y = Math.floor((topFrame.getHeight() + playerHeight) + Math.random() * (gamePane.getPrefHeight() - topFrame.getHeight() - 2 * playerHeight));
+        int colorIndex = (int)Math.floor(Math.random() * playerColors.size());
+        player = new Character(pos_x, pos_y, playerColors.get(colorIndex));
+        playerHp.setProgress(player.getHp());
+        gamePane.getChildren().add(player);
+    }
+
     public void food_spawn(){
+        double radius = 7;
         int random = (int)Math.floor(Math.random() * 10);
-        double pos_x = Math.floor(Math.random() * (gamePane.getWidth() - 30) + 15);
-        double pos_y = Math.floor(Math.random() * (gamePane.getHeight() - 50) + 45);
+        double pos_x = Math.floor(radius + Math.random() * (gamePane.getWidth() - 2 * radius));
+        double pos_y = Math.floor((topFrame.getHeight() + radius) + Math.random() * (gamePane.getHeight() - (topFrame.getHeight() + 2 * radius)));
         if (random == 7){
-            Food food = new Food(pos_x, pos_y, 7, Color.RED);
+            Food food = new Food(pos_x, pos_y, radius, Color.RED);
             foods.add(food);
-            rootGame.getChildren().add(food);
+            gamePane.getChildren().add(food);
         }        
     }
 
     public void setHpAndScore(){
-        playerHp.setProgress(person.getHp()/100);
-        playerScore.setText("Score: " + String.valueOf(person.getScore()));
+        playerHp.setProgress(player.getHp()/100);
+        playerScore.setText("Score: " + String.valueOf(player.getScore()));
     }
 
     public void change_time(){
         clock.setText("120");
         int max_time = 120;
-        t = new Thread(){
+        clockThread = new Thread(){
             public void run(){
                 for (int i = 0; i < max_time; i++){
                     try {
                         Thread.sleep(1000);
-                    } catch (InterruptedException e) {}
+                    } catch (InterruptedException e) {
+                        break;
+                    }
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
@@ -167,20 +184,20 @@ public class GameController implements Initializable {
                 }
             }
         };
-        t.start();
+        clockThread.start();
     }
 
     public void isFoodEat(){
         foods.forEach((food) -> {
-            if (person.getBoundsInParent().intersects(food.getBoundsInParent())){
-                person.setHp(person.getHp() + food.getFoodValue());
-                if (person.getHp() > 100) person.setHp(100);
-                person.setScore(person.getScore() + 1);
+            if (player.getBoundsInParent().intersects(food.getBoundsInParent())){
+                player.setHp(player.getHp() + food.getFoodValue());
+                if (player.getHp() > 100) player.setHp(100);
+                player.setScore(player.getScore() + 1);
                 removeFood = food;
             }
         });
         foods.remove(removeFood);
-        rootGame.getChildren().remove(removeFood);
+        gamePane.getChildren().remove(removeFood);
     }
     
 }

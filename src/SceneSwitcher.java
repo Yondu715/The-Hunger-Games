@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -12,9 +13,9 @@ public class SceneSwitcher {
         AnchorPane gamePane = FXMLLoader.load(getClass().getResource(scenePath));
         Stage stage = new Stage();
         Scene scene = new Scene(gamePane);
-
         scene.getRoot().requestFocus();
         stage.setScene(scene);
+        stage.getIcons().add(new Image("resources\\icons\\burger.png"));
         stage.setTitle("The Hunger Games");
         stage.centerOnScreen();
         stage.setMinHeight(400);
@@ -25,7 +26,6 @@ public class SceneSwitcher {
                 System.exit(0);
             });
         }
-        
         stage.show();
     }
 }

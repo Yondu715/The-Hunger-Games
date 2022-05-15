@@ -1,5 +1,6 @@
 package src.game;
 
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class Character extends Rectangle{
@@ -10,11 +11,12 @@ public class Character extends Rectangle{
     private int width = 32;
     private int height = 32;
 
-    public Character(double pos_x, double pos_y){
+    public Character(double pos_x, double pos_y, Paint color){
         setWidth(width);
         setHeight(height);
         setX(pos_x);
         setY(pos_y);
+        setFill(color);
         this.pos_x = pos_x;
         this.pos_y = pos_y;        
     }
