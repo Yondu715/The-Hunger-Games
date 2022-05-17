@@ -147,7 +147,7 @@ public class GameController implements Initializable {
 
     public void food_spawn(){
         double radius = 7;
-        int random = (int)Math.floor(Math.random() * 10);
+        int random = (int)Math.floor(Math.random() * 210);
         double pos_x = Math.floor(radius + Math.random() * (gamePane.getWidth() - 2 * radius));
         double pos_y = Math.floor((topFrame.getHeight() + radius) + Math.random() * (gamePane.getHeight() - (topFrame.getHeight() + 2 * radius)));
         if (random == 7){
@@ -158,7 +158,7 @@ public class GameController implements Initializable {
     }
 
     public void setHpAndScore(){
-        playerHp.setProgress(player.getHp()/100);
+        playerHp.setProgress(player.getHp() / 100);
         playerScore.setText("Score: " + String.valueOf(player.getScore()));
     }
 
