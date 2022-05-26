@@ -44,7 +44,7 @@ public class SplashController implements Initializable{
                 Platform.runLater(new Runnable() {
                     public void run(){
                         try {
-                            new SceneSwitcher().switchScene("\\resources\\game.fxml");
+                            new SceneSwitcher().switchScene("\\resources\\menu.fxml");
                             splashPane.getScene().getWindow().hide();
                         } catch (IOException e1) {} 
                     }

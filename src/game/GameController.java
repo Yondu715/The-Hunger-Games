@@ -1,5 +1,6 @@
 package src.game;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +22,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import src.SceneSwitcher;
 
 public class GameController implements Initializable {
 
@@ -125,6 +127,12 @@ public class GameController implements Initializable {
             gamePane.getChildren().remove(player);
             updateTimer.stop();
             clockThread.interrupt();
+            try {
+                new SceneSwitcher().switchScene("\\resources\\GameOver.fxml");
+                gamePane.getScene().getWindow().hide();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

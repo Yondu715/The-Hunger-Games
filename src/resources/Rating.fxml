@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="Pane" maxHeight="530.0" maxWidth="969.0" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.RatingController">
+    <children>
+        <Pane layoutX="-1.0" prefHeight="114.0" prefWidth="970.0" style="-fx-background-color: #E5E5E5;">
+            <children>
+                <Label layoutX="417.0" layoutY="24.0" text="Rating">
+                    <font>
+                        <Font size="48.0" />
+                    </font>
+                </Label>
+                <Button fx:id="btn_back" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="14.0" layoutY="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" stylesheets="@stile/utils/fullpackstyling_2.css" text="Back" textAlignment="CENTER">
+                    <padding>
+                        <Insets left="40.0" />
+                    </padding>
+                    <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@stile/icons/back.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </Pane>
+        <Separator layoutY="113.0" prefHeight="0.0" prefWidth="970.0" />
+      <TableView fx:id="table" layoutX="-1.0" layoutY="116.0" prefHeight="414.0" prefWidth="969.0">
+        <columns>
+          <TableColumn fx:id="place" prefWidth="323.0" text="Place" />
+          <TableColumn fx:id="point" prefWidth="323.0" text="Login" />
+            <TableColumn fx:id="level" prefWidth="323.0" text="Points" />
+        </columns>
+      </TableView>
+    </children>
+</AnchorPane>
