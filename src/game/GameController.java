@@ -37,7 +37,7 @@ public class GameController implements Initializable {
 
     private Thread clockThread;
     private Food removeFood = null;
-    private List<Paint> playerColors = Arrays.asList(Color.BLACK, Color.BLUE, Color.AQUA, Color.GREEN);
+    private List<Paint> playerColors = Arrays.asList(Color.BLACK, Color.BLUE, Color.GREEN);
     private ArrayList<Food> foods = new ArrayList<>();
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Character player;

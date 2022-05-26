@@ -32,19 +32,7 @@ public class SceneSwitcher {
                 System.exit(0);
             });
         }
-        if (scenePath == "\\resources\\Autorization.fxml") {
-            stage.setOnCloseRequest(event -> {
-                Platform.exit();
-                System.exit(0);
-            });
-        }
         if (scenePath == "\\resources\\Registr.fxml") {
-            stage.setOnCloseRequest(event -> {
-                Platform.exit();
-                System.exit(0);
-            });
-        }
-        if (scenePath == "\\resources\\Rating.fxml") {
             stage.setOnCloseRequest(event -> {
                 Platform.exit();
                 System.exit(0);

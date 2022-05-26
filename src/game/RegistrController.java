@@ -33,7 +33,7 @@ public class RegistrController {
     void initialize() {
         btn_back_reg.setOnAction(event -> {
             try {
-                new SceneSwitcher().switchScene("\\resources\\Autorization.fxml");
+                new SceneSwitcher().switchScene("\\resources\\menu.fxml");
                 Pane.getScene().getWindow().hide();
             } catch (IOException e) {
                 e.printStackTrace();
