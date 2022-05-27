@@ -3,6 +3,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.ResultSet;
 
 public class DatabaseHandler extends Configs{
@@ -49,5 +53,24 @@ public class DatabaseHandler extends Configs{
             e.printStackTrace();
         }
         return false;
+    }
+
+    public ObservableList<Player> getRating(){
+        ObservableList<Player> rating = FXCollections.observableArrayList();
+        ResultSet resSet = null;
+
+        String select = "SELECT " + Const.PLAYER_LOGIN + " , " + Const.PLAYER_SCORE_SCORE + " FROM " + Const.PLAYER_TABLE + " INNER JOIN " + 
+                        Const.PLAYER_SCORE_TABLE + " ON " +  Const.PLAYER_SCORE_TABLE + "." + Const.PLAYER_SCORE_ID_PLAYER + "=" + Const.PLAYER_TABLE + "." + Const.PLAYER_ID;
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(select);
+            resSet = prSt.executeQuery();
+            while(resSet.next()){
+                Player player = new Player(resSet.getString("player.login"), resSet.getInt("player_score.score"));
+                rating.add(player);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rating;
     }
 }

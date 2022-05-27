@@ -55,6 +55,14 @@ public class RegistrController {
 
         if (!login.equals("") & !password.equals("") & !password_rep.equals("") & password.equals(password_rep)){
             dbHandler.signUpPlayer(login, password);
+            try {
+                new SceneSwitcher().switchScene("\\resources\\menu.fxml");
+                Pane.getScene().getWindow().hide();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.print("Fields is empty or password don't match");
         }
     }
 
