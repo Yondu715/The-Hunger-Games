@@ -47,6 +47,15 @@ public class MenuController {
 
     @FXML
     void initialize(){
+        btn_sign_in.setOnAction(event -> {
+            String loginText = login_text.getText().trim();
+            String passwordText = pass_text.getText().trim();
+
+            if (!loginText.equals("") && !passwordText.equals("")){
+                loginPlayer(loginText, passwordText);
+            }
+        });
+
         btn_start.setOnAction(event -> {
             try {
                 new SceneSwitcher().switchScene("\\resources\\game.fxml");
@@ -79,5 +88,9 @@ public class MenuController {
                 e.printStackTrace();
             }
         });
+    }
+
+    private void loginPlayer(String loginText, String passwordText) {
+
     }
 }
