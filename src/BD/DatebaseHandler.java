@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.ResultSet;
 
 public class DatebaseHandler extends Configs{
     Connection dbConnection;
@@ -29,5 +30,21 @@ public class DatebaseHandler extends Configs{
         prSt.setString(2, player.getPassword());
 
         prSt.executeUpdate();
+    }
+
+    public ResultSet getPlayer(Player player)
+            throws SQLException, ClassNotFoundException {
+        ResultSet resSet = null;
+
+        String select = "SELECT * FROM " + Const.PLAYER_TABLE + " WHERE " +
+                Const.PLAYER_LOGIN + "=? AND " + Const.PLAYER_PASSWORD + "=?";
+
+        PreparedStatement prSt = getDbConnection().prepareStatement(select);
+        prSt.setString(1, player.getLogin());
+        prSt.setString(2, player.getPassword());
+
+        resSet = prSt.executeQuery();
+
+        return resSet;
     }
 }

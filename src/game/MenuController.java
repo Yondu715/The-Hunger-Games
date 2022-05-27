@@ -2,6 +2,8 @@ package src.game;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javax.swing.Action;
 import javafx.event.ActionEvent;
@@ -14,7 +16,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import src.BD.DatebaseHandler;
+import src.BD.Player;
 import src.SceneSwitcher;
+import src.resources.animations.Shake;
 
 public class MenuController {
 
@@ -52,7 +57,14 @@ public class MenuController {
             String passwordText = pass_text.getText().trim();
 
             if (!loginText.equals("") && !passwordText.equals("")){
-                loginPlayer(loginText, passwordText);
+                try {
+                    loginPlayer(loginText, passwordText);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                System.out.print("Login or password is empty");
             }
         });
 
@@ -90,7 +102,27 @@ public class MenuController {
         });
     }
 
-    private void loginPlayer(String loginText, String passwordText) {
+    private void loginPlayer(String loginText, String passwordText)
+            throws SQLException, ClassNotFoundException {
+        DatebaseHandler dbHandler = new DatebaseHandler();
+        Player player = new Player();
+        player.setLogin(loginText);
+        player.setPassword(passwordText);
+        ResultSet result = dbHandler.getPlayer(player);
 
+        int counter = 0;
+        while (result.next()) {
+            counter++;
+        }
+        if (counter >= 1)
+        {
+            System.out.print("Success");
+        }
+        else {
+            Shake playerLoginAnim = new Shake(login_text);
+            Shake playerPasswordAnim = new Shake(pass_text);
+            playerLoginAnim.playAnim();
+            playerPasswordAnim.playAnim();
+        }
     }
 }

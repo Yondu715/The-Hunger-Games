@@ -9,6 +9,8 @@ public class Player {
         this.password = password;
     }
 
+    public Player() {}
+
     public String getLogin() {
         return login;
     }
