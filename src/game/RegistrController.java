@@ -34,8 +34,6 @@ public class RegistrController {
 
     @FXML
     void initialize() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
-
         btn_enter_reg.setOnAction(event -> signUpNewPlayer());
 
         btn_back_reg.setOnAction(event -> {
@@ -49,17 +47,14 @@ public class RegistrController {
     }
 
     private void signUpNewPlayer() {
-        try {
-            DatabaseHandler dbHandler = new DatabaseHandler();
+        DatabaseHandler dbHandler = new DatabaseHandler();
 
-            String login = login_text.getText();
-            String password = pass_text.getText();
+        String login = login_text.getText();
+        String password = pass_text.getText();
+        String password_rep = pass_rep_txt.getText();
 
-            Player player = new Player(login, password);
-
-            dbHandler.signUpPlayer(player);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        if (!login.equals("") & !password.equals("") & !password_rep.equals("") & password.equals(password_rep)){
+            dbHandler.signUpPlayer(login, password);
         }
     }
 

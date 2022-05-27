@@ -1,29 +1,22 @@
 package src.DB;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 public class Player {
-    private String login;
-    private String password;
+    private SimpleStringProperty login;
+    private SimpleIntegerProperty points;
 
-    public Player(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public Player(String login, Integer points) {
+        this.login = new SimpleStringProperty(login);
+        this.points = new SimpleIntegerProperty(points);
     }
-
-    public Player() {}
 
     public String getLogin() {
-        return login;
+        return this.login.get();
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public int getPoints() {
+        return this.points.get();
     }
 }

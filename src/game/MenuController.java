@@ -44,24 +44,24 @@ public class MenuController {
     private TableView<?> table;
 
     @FXML
-    private TableColumn<?, ?> level;
+    private TableColumn<?, ?> login;
     @FXML
-    private TableColumn<?, ?> place;
-    @FXML
-    private TableColumn<?, ?> point;
+    private TableColumn<?, ?> points;
 
     @FXML
     void initialize(){
+        startPane.setVisible(true);
+        startPane.setOpacity(1);
+        ratePane.setVisible(false);
+        ratePane.setOpacity(1);
+        authPane.setVisible(false);
+        authPane.setOpacity(1);
         btn_sign_in.setOnAction(event -> {
-            String loginText = login_text.getText().trim();
-            String passwordText = pass_text.getText().trim();
+            String login = login_text.getText().trim();
+            String password = pass_text.getText().trim();
 
-            if (!loginText.equals("") && !passwordText.equals("")){
-                try {
-                    loginPlayer(loginText, passwordText);
-                } catch (SQLException | ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
+            if (!login.equals("") && !password.equals("")){
+                loginPlayer(login, password);
             }
             else {
                 System.out.print("Login or password is empty");
@@ -78,19 +78,13 @@ public class MenuController {
         });
         btn_rating.setOnAction(event -> {
             startPane.setVisible(false);
-            startPane.setOpacity(0);
             ratePane.setVisible(true);
-            ratePane.setOpacity(1);
             authPane.setVisible(false);
-            authPane.setOpacity(0);
         });
         btn_auth.setOnAction(event -> {
             startPane.setVisible(false);
-            startPane.setOpacity(0);
             ratePane.setVisible(false);
-            ratePane.setOpacity(0);
             authPane.setVisible(true);
-            authPane.setOpacity(1);
         });
         btn_reg.setOnAction(event -> {
             try {
@@ -102,27 +96,20 @@ public class MenuController {
         });
     }
 
-    private void loginPlayer(String loginText, String passwordText)
-            throws SQLException, ClassNotFoundException {
-        DatabaseHandler dbHandler = new DatabaseHandler();
-        Player player = new Player();
-        player.setLogin(loginText);
-        player.setPassword(passwordText);
-        ResultSet result = dbHandler.getPlayer(player);
-
-        int counter = 0;
-        while (result.next()) {
-            counter++;
+    private void loginPlayer(String login, String password){
+        try {
+            DatabaseHandler dbHandler = new DatabaseHandler();
+            if (dbHandler.getPlayer(login, password)){
+                System.out.print("Success");
+            } else {
+                Shake playerLoginAnim = new Shake(login_text);
+                Shake playerPasswordAnim = new Shake(pass_text);
+                playerLoginAnim.playAnim();
+                playerPasswordAnim.playAnim();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if (counter >= 1)
-        {
-            System.out.print("Success");
-        }
-        else {
-            Shake playerLoginAnim = new Shake(login_text);
-            Shake playerPasswordAnim = new Shake(pass_text);
-            playerLoginAnim.playAnim();
-            playerPasswordAnim.playAnim();
-        }
+       
     }
 }
