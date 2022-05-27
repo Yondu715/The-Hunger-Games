@@ -1,4 +1,4 @@
-package src.BD;
+package src.DB;
 
 public class Player {
     private String login;

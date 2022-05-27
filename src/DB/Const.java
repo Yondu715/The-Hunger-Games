@@ -1,4 +1,4 @@
-package src.BD;
+package src.DB;
 
 public class Const {
     public static final String PLAYER_TABLE = "player";

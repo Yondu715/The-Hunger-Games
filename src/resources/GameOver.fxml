@@ -19,7 +19,7 @@
                         <Font size="48.0" />
                     </font>
                 </Label>
-                <Button fx:id="btn_menu" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="14.0" layoutY="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" stylesheets="@stile/utils/fullpackstyling_2.css" text="Menu" textAlignment="CENTER">
+                <Button fx:id="btn_menu" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="14.0" layoutY="22.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="210.0" stylesheets="@style/utils/fullpackstyling_2.css" text="Menu" textAlignment="CENTER">
                     <padding>
                         <Insets left="40.0" />
                     </padding>

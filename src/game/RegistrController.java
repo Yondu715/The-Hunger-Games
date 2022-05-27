@@ -9,8 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import src.BD.DatebaseHandler;
-import src.BD.Player;
+import src.DB.DatabaseHandler;
+import src.DB.Player;
 import src.SceneSwitcher;
 
 public class RegistrController {
@@ -34,7 +34,7 @@ public class RegistrController {
 
     @FXML
     void initialize() {
-        DatebaseHandler dbHandler = new DatebaseHandler();
+        DatabaseHandler dbHandler = new DatabaseHandler();
 
         btn_enter_reg.setOnAction(event -> signUpNewPlayer());
 
@@ -50,7 +50,7 @@ public class RegistrController {
 
     private void signUpNewPlayer() {
         try {
-            DatebaseHandler dbHandler = new DatebaseHandler();
+            DatabaseHandler dbHandler = new DatabaseHandler();
 
             String login = login_text.getText();
             String password = pass_text.getText();

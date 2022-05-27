@@ -1,11 +1,11 @@
-package src.BD;
+package src.DB;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-public class DatebaseHandler extends Configs{
+public class DatabaseHandler extends Configs{
     Connection dbConnection;
 
     public Connection getDbConnection()

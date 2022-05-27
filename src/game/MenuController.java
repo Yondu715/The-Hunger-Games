@@ -16,8 +16,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import src.BD.DatebaseHandler;
-import src.BD.Player;
+import src.DB.DatabaseHandler;
+import src.DB.Player;
 import src.SceneSwitcher;
 import src.resources.animations.Shake;
 
@@ -104,7 +104,7 @@ public class MenuController {
 
     private void loginPlayer(String loginText, String passwordText)
             throws SQLException, ClassNotFoundException {
-        DatebaseHandler dbHandler = new DatebaseHandler();
+        DatabaseHandler dbHandler = new DatabaseHandler();
         Player player = new Player();
         player.setLogin(loginText);
         player.setPassword(passwordText);
