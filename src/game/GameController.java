@@ -162,18 +162,14 @@ public class GameController implements Initializable{
             gamePane.getChildren().remove(player);
             updateTimer.stop();
             clockThread.interrupt();
-            txt_points.setText(txt_points.getText() + " " + player.getScore());
-            foods.forEach((food) -> {
-                gamePane.getChildren().remove(food);
-            });
-            Pane.setVisible(true);
-            databaseHandler.PlayerScore(loginHandler.getCreatedInstance().getLogin(), player.getScore());
+            endGame();
         }
     }
 
     public void check_time(){
         if (clock.getText().equals("0")){
             updateTimer.stop();
+            endGame();
         }
     }
 
@@ -240,6 +236,15 @@ public class GameController implements Initializable{
         });
         foods.remove(removeFood);
         gamePane.getChildren().remove(removeFood);
+    }
+
+    public void endGame(){
+        txt_points.setText(txt_points.getText() + " " + player.getScore());
+        foods.forEach((food) -> {
+            gamePane.getChildren().remove(food);
+        });
+        Pane.setVisible(true);
+        databaseHandler.PlayerScore(loginHandler.getCreatedInstance().getLogin(), player.getScore());
     }
     
 }
