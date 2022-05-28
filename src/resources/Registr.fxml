@@ -44,6 +44,6 @@
             </font>
         </Button>
       <PasswordField fx:id="pass_rep_txt" layoutX="304.0" layoutY="303.0" prefHeight="40.0" prefWidth="387.0" promptText="Repeat Password" />
-      <Label fx:id="txt_massage" alignment="CENTER" layoutX="252.0" layoutY="468.0" prefHeight="40.0" prefWidth="490.0" style="-fx-text-fill: linear-gradient(to bottom, #9933ff 0%, #ff99cc 100%)&quot;);;" textAlignment="CENTER" />
+      <Label fx:id="txt_massage" alignment="CENTER" layoutX="252.0" layoutY="468.0" prefHeight="40.0" prefWidth="490.0" textAlignment="CENTER" />
     </children>
 </AnchorPane>

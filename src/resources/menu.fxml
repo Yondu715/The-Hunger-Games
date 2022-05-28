@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" maxHeight="530.0" maxWidth="969.0" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.MenuController">
+<AnchorPane fx:id="Pane" maxHeight="530.0" maxWidth="969.0" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.MenuController">
    <children>
       <Pane style="-fx-background-color: #E5E5E5;">
          <children>
@@ -154,6 +154,7 @@
                         <Font size="18.0" />
                      </font>
                   </Button>
+                  <Label fx:id="txt_massage" alignment="CENTER" layoutX="128.0" layoutY="443.0" prefHeight="40.0" prefWidth="506.0" />
                </children>
             </AnchorPane>
          </children>

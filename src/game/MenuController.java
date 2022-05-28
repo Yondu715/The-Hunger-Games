@@ -31,7 +31,7 @@ public class MenuController {
     private Button btn_auth, btn_rating, btn_start, btn_reg, btn_sign_in;
 
     @FXML
-    private Label txt_messeg, status;
+    private Label txt_massage, status;
 
     @FXML
     private Pane startPane, authPane, ratePane;
@@ -70,8 +70,22 @@ public class MenuController {
             if (!login.equals("") && !password.equals("")){
                 loginPlayer(login, password);
             }
+            else if (login.equals("") && !password.equals("")) {
+                Shake playerLoginAnim = new Shake(login_text);
+                playerLoginAnim.playAnim();
+                txt_massage.setText("Login is empty");
+            }
+            else if (!login.equals("")) {
+                Shake playerPasswordAnim = new Shake(pass_text);
+                playerPasswordAnim.playAnim();
+                txt_massage.setText("Password is empty");
+            }
             else {
-                System.out.print("Login or password is empty");
+                Shake playerLoginAnim = new Shake(login_text);
+                Shake playerPasswordAnim = new Shake(pass_text);
+                playerLoginAnim.playAnim();
+                playerPasswordAnim.playAnim();
+                txt_massage.setText("Login and password is empty");
             }
         });
 
@@ -116,11 +130,13 @@ public class MenuController {
                 login_text.clear();
                 pass_text.clear();
                 status.setText(login);
+                txt_massage.setText("");
             } else {
                 Shake playerLoginAnim = new Shake(login_text);
                 Shake playerPasswordAnim = new Shake(pass_text);
                 playerLoginAnim.playAnim();
                 playerPasswordAnim.playAnim();
+                txt_massage.setText("User not found");
             }
         } catch (Exception e) {
             e.printStackTrace();
