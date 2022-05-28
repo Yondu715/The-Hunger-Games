@@ -73,4 +73,18 @@ public class DatabaseHandler extends Configs{
         }
         return rating;
     }
+
+    public void PlayerScore(String login, String score){
+        String insert = "INSERT INTO " + Const.PLAYER_SCORE_TABLE + "(" +
+                Const.PLAYER_LOGIN + "," + Const.PLAYER_SCORE_SCORE + ")" +
+                "VALUES(?,?)";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(insert);
+            prSt.setString(1, login);
+            prSt.setString(2, score);
+            prSt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

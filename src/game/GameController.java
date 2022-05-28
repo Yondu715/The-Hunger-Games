@@ -1,5 +1,7 @@
 package src.game;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,25 +17,34 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import src.SceneSwitcher;
 import src.game.client.Food;
-import src.game.client.Character;;
+import src.game.client.Character;
+import src.DB.DatabaseHandler;
+import src.DB.Player;
 
 public class GameController implements Initializable{
 
     @FXML
-    AnchorPane gamePane;
+    Button btn_menu, btn_rest;
+    @FXML
+    AnchorPane gamePane, Pane;
     @FXML
     Rectangle topFrame;
     @FXML
-    Label clock, playerScore;
+    Label clock, playerScore, txt_points, txt_message;
     @FXML
     ProgressBar playerHp;
 
@@ -47,6 +58,24 @@ public class GameController implements Initializable{
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+
+        btn_menu.setOnAction(event -> {
+            try {
+                new SceneSwitcher().switchScene("\\resources\\menu.fxml");
+                Pane.getScene().getWindow().hide();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        btn_rest.setOnAction(event -> {
+            try {
+                new SceneSwitcher().switchScene("\\resources\\game.fxml");
+                Pane.getScene().getWindow().hide();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         gamePane.setOnKeyPressed(event -> keys.put(event.getCode(), true));
         gamePane.setOnKeyReleased(event -> keys.put(event.getCode(), false));
 
@@ -72,7 +101,11 @@ public class GameController implements Initializable{
                 update(); 
             }
         };
-        player_spawn();
+        try {
+            player_spawn();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         updateTimer.start();
         change_time(); 
     }
@@ -129,12 +162,9 @@ public class GameController implements Initializable{
             gamePane.getChildren().remove(player);
             updateTimer.stop();
             clockThread.interrupt();
-            try {
-                new SceneSwitcher().switchScene("\\resources\\GameOver.fxml");
-                gamePane.getScene().getWindow().hide();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            txt_points.setText(txt_points.getText() + " " + player.getScore());
+            Pane.setVisible(true);
+            /*PlayerScore(login, player.getScore());*/
         }
     }
 
@@ -144,14 +174,21 @@ public class GameController implements Initializable{
         }
     }
 
-    public void player_spawn(){
+    public void player_spawn() throws FileNotFoundException {
         int playerWidth = 32;
         int playerHeight = 32;
         double pos_x = Math.floor(playerWidth + Math.random() * (gamePane.getPrefWidth() - playerWidth));
         double pos_y = Math.floor((topFrame.getHeight() + playerHeight) + Math.random() * (gamePane.getPrefHeight() - topFrame.getHeight() - 2 * playerHeight));
         int colorIndex = (int)Math.floor(Math.random() * playerColors.size());
+        /*
+        Image image = new Image(new FileInputStream("\\resources\\player.gif"));
+        ImageView iv1 = new ImageView();
+        iv1.setImage(image);
+        HBox box = new HBox();
+        box.getChildren().add(iv1);*/
         player = new Character(pos_x, pos_y, playerColors.get(colorIndex));
         playerHp.setProgress(player.getHp());
+        /*gamePane.getChildren().add(box);*/
         gamePane.getChildren().add(player);
     }
 

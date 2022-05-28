@@ -15,7 +15,6 @@ public class SceneSwitcher {
         Scene scene = new Scene(gamePane);
         scene.getRoot().requestFocus();
         stage.setScene(scene);
-        stage.getIcons().add(new Image("resources\\icons\\burger.png"));
         stage.setTitle("The Hunger Games");
         stage.centerOnScreen();
         stage.setMinHeight(530);
@@ -33,12 +32,6 @@ public class SceneSwitcher {
             });
         }
         if (scenePath == "\\resources\\Registr.fxml") {
-            stage.setOnCloseRequest(event -> {
-                Platform.exit();
-                System.exit(0);
-            });
-        }
-        if (scenePath == "\\resources\\GameOver.fxml") {
             stage.setOnCloseRequest(event -> {
                 Platform.exit();
                 System.exit(0);
