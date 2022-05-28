@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" maxHeight="530.0" maxWidth="969.0" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.RegistrController">
+<AnchorPane fx:id="Pane" maxHeight="530.0" maxWidth="969.0" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.RegistrController">
     <children>
         <Pane layoutX="-1.0" prefHeight="114.0" prefWidth="970.0" style="-fx-background-color: #E5E5E5;">
             <children>
@@ -38,11 +38,12 @@
         <Separator layoutY="113.0" prefHeight="0.0" prefWidth="970.0" />
         <TextField fx:id="login_text" layoutX="305.0" layoutY="154.0" prefHeight="40.0" prefWidth="387.0" promptText="Login" />
         <PasswordField fx:id="pass_text" layoutX="305.0" layoutY="225.0" prefHeight="40.0" prefWidth="387.0" promptText="Password" />
-        <Button fx:id="btn_enter_reg" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" layoutX="368.0" layoutY="386.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="260.0" stylesheets="@style/utils/fullpackstyling.css" text="Enter" textAlignment="CENTER">
+        <Button fx:id="btn_enter_reg" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" layoutX="368.0" layoutY="385.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="260.0" stylesheets="@style/utils/fullpackstyling.css" text="Sign up" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
       <PasswordField fx:id="pass_rep_txt" layoutX="304.0" layoutY="303.0" prefHeight="40.0" prefWidth="387.0" promptText="Repeat Password" />
+      <Label fx:id="txt_massage" alignment="CENTER" layoutX="252.0" layoutY="468.0" prefHeight="40.0" prefWidth="490.0" style="-fx-text-fill: linear-gradient(to bottom, #9933ff 0%, #ff99cc 100%)&quot;);;" textAlignment="CENTER" />
     </children>
 </AnchorPane>
