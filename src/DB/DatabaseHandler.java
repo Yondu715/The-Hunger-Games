@@ -74,17 +74,42 @@ public class DatabaseHandler extends Configs{
         return rating;
     }
 
-    public void PlayerScore(String login, String score){
-        String insert = "INSERT INTO " + Const.PLAYER_SCORE_TABLE + "(" +
-                Const.PLAYER_LOGIN + "," + Const.PLAYER_SCORE_SCORE + ")" +
-                "VALUES(?,?)";
+    public void PlayerScore(String login, int score) {
+
+        ResultSet resSet = null;
+
+        String select = "(SELECT " + Const.PLAYER_ID + " FROM " + Const.PLAYER_TABLE + " WHERE " +
+                Const.PLAYER_LOGIN + "='" + login + "')";
+
+        String select2 = "SELECT " + Const.PLAYER_SCORE_SCORE + " FROM " + Const.PLAYER_SCORE_TABLE + " WHERE " +
+                Const.PLAYER_SCORE_ID_PLAYER + "=?";
+
+        Integer new_score = null;
         try {
-            PreparedStatement prSt = getDbConnection().prepareStatement(insert);
-            prSt.setString(1, login);
-            prSt.setString(2, score);
-            prSt.executeUpdate();
+            PreparedStatement prSt = getDbConnection().prepareStatement(select2);
+            prSt.setString(1, select);
+            prSt.executeQuery();
+            resSet = prSt.executeQuery();
+            if (resSet.next()) {
+                new_score = resSet.getInt(Const.PLAYER_SCORE_SCORE);
+            }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+
+        if (Integer.parseInt(String.valueOf(score)) > Integer.parseInt(String.valueOf(new_score))) {
+            String insert = "INSERT INTO " + Const.PLAYER_SCORE_TABLE + "(" +
+                    Const.PLAYER_SCORE_ID_PLAYER + "," + Const.PLAYER_SCORE_SCORE + ")" +
+                    "VALUES(?,?)";
+            try {
+                PreparedStatement prSt = getDbConnection().prepareStatement(insert);
+                prSt.setString(1, select);
+                prSt.setString(2, String.valueOf(score));
+                prSt.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
