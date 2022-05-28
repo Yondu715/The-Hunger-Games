@@ -11,8 +11,8 @@ public class Character extends Pane{
     private int score = 0;
     private double pos_x;
     private double pos_y;
-    private int width = 32;
-    private int height = 32;
+    private int width = 64;
+    private int height = 64;
     Image img = new Image("\\resources\\player.gif");
 
     public Character(double pos_x, double pos_y){

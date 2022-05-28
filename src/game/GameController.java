@@ -54,6 +54,7 @@ public class GameController implements Initializable{
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Character player;
     private AnimationTimer updateTimer;
+    private Singleton loginHandler = Singleton.getInstance("");
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -174,9 +175,9 @@ public class GameController implements Initializable{
         }
     }
 
-    public void player_spawn() throws FileNotFoundException {
-        int playerWidth = 32;
-        int playerHeight = 32;
+    public void player_spawn() {
+        int playerWidth = 64;
+        int playerHeight = 64;
         double pos_x = Math.floor(playerWidth + Math.random() * (gamePane.getPrefWidth() - playerWidth));
         double pos_y = Math.floor((topFrame.getHeight() + playerHeight) + Math.random() * (gamePane.getPrefHeight() - topFrame.getHeight() - 2 * playerHeight));
         player = new Character(pos_x, pos_y);

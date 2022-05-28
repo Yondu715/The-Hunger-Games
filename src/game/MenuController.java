@@ -51,6 +51,7 @@ public class MenuController {
     private TableColumn<Player, Integer> points_col;
 
     DatabaseHandler dbHandler = new DatabaseHandler();
+    Singleton loginHandler;
 
     @FXML
     void initialize(){
@@ -69,6 +70,7 @@ public class MenuController {
 
             if (!login.equals("") && !password.equals("")){
                 loginPlayer(login, password);
+                loginHandler.getInstance(login);
             }
             else if (login.equals("") && !password.equals("")) {
                 Shake playerLoginAnim = new Shake(login_text);
