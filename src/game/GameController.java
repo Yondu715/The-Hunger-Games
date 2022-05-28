@@ -23,8 +23,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import src.SceneSwitcher;
+import src.game.client.Food;
+import src.game.client.Character;;
 
-public class GameController implements Initializable {
+public class GameController implements Initializable{
 
     @FXML
     AnchorPane gamePane;

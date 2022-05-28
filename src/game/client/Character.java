@@ -1,4 +1,4 @@
-package src.game;
+package src.game.client;
 
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
