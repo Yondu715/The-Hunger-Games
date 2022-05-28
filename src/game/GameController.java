@@ -50,7 +50,6 @@ public class GameController implements Initializable{
 
     private Thread clockThread;
     private Food removeFood = null;
-    private List<Paint> playerColors = Arrays.asList(Color.BLACK, Color.BLUE, Color.GREEN);
     private ArrayList<Food> foods = new ArrayList<>();
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Character player;
@@ -103,9 +102,8 @@ public class GameController implements Initializable{
         };
         try {
             player_spawn();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) {
+        } 
         updateTimer.start();
         change_time(); 
     }
@@ -163,8 +161,10 @@ public class GameController implements Initializable{
             updateTimer.stop();
             clockThread.interrupt();
             txt_points.setText(txt_points.getText() + " " + player.getScore());
+            foods.forEach((food) -> {
+                gamePane.getChildren().remove(food);
+            });
             Pane.setVisible(true);
-            /*PlayerScore(login, player.getScore());*/
         }
     }
 
@@ -179,16 +179,8 @@ public class GameController implements Initializable{
         int playerHeight = 32;
         double pos_x = Math.floor(playerWidth + Math.random() * (gamePane.getPrefWidth() - playerWidth));
         double pos_y = Math.floor((topFrame.getHeight() + playerHeight) + Math.random() * (gamePane.getPrefHeight() - topFrame.getHeight() - 2 * playerHeight));
-        int colorIndex = (int)Math.floor(Math.random() * playerColors.size());
-        /*
-        Image image = new Image(new FileInputStream("\\resources\\player.gif"));
-        ImageView iv1 = new ImageView();
-        iv1.setImage(image);
-        HBox box = new HBox();
-        box.getChildren().add(iv1);*/
-        player = new Character(pos_x, pos_y, playerColors.get(colorIndex));
+        player = new Character(pos_x, pos_y);
         playerHp.setProgress(player.getHp());
-        /*gamePane.getChildren().add(box);*/
         gamePane.getChildren().add(player);
     }
 

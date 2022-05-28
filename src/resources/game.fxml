@@ -12,9 +12,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gamePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.GameController">
+<AnchorPane fx:id="gamePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.GameController">
    <children>
-      <Rectangle fx:id="topFrame" arcWidth="5.0" fill="#91b8ff" height="35.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1020.0" />
+      <Rectangle fx:id="topFrame" arcWidth="5.0" fill="#91b8ff" height="35.0" stroke="TRANSPARENT" strokeType="INSIDE" width="969.0" />
       <ProgressBar fx:id="playerHp" layoutX="14.0" layoutY="9.0" prefHeight="18.0" prefWidth="190.0" progress="1.0" style="-fx-accent: #9acd32; -fx-control-inner-background: #91b8ff; -fx-text-box-border: #91b8ff; -fx-background-color: #91b8ff;">
          <opaqueInsets>
             <Insets />

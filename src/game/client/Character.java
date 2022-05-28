@@ -1,24 +1,28 @@
 package src.game.client;
 
+import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
 
-public class Character extends Rectangle{
+public class Character extends Pane{
     private double hp = 100;
     private int score = 0;
     private double pos_x;
     private double pos_y;
     private int width = 32;
     private int height = 32;
+    Image img = new Image("\\resources\\player.gif");
 
-    public Character(double pos_x, double pos_y, Paint color){
-        setWidth(width);
-        setHeight(height);
-        setX(pos_x);
-        setY(pos_y);
-        setFill(color);
+    public Character(double pos_x, double pos_y){
         this.pos_x = pos_x;
-        this.pos_y = pos_y;        
+        this.pos_y = pos_y;  
+        setLayoutX(this.pos_x);
+        setLayoutY(this.pos_y);
+        ImageView imageView = new ImageView(img);
+        imageView.setViewport(new Rectangle2D(0, 0, this.width, this.height));
+        getChildren().addAll(imageView);
     }
 
     public double getPosX(){
