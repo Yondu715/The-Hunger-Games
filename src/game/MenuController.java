@@ -64,6 +64,12 @@ public class MenuController {
         login_col.setCellValueFactory(new PropertyValueFactory<Player, String>("login"));
         points_col.setCellValueFactory(new PropertyValueFactory<Player, Integer>("points"));
 
+        try {
+            if (loginHandler.getCreatedInstance() != null){
+                status.setText(loginHandler.getCreatedInstance().getLogin());
+            }
+        } catch (Exception e) {}
+
         btn_sign_in.setOnAction(event -> {
             String login = login_text.getText().trim();
             String password = pass_text.getText().trim();

@@ -54,7 +54,8 @@ public class GameController implements Initializable{
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private Character player;
     private AnimationTimer updateTimer;
-    private Singleton loginHandler = Singleton.getInstance("");
+    private Singleton loginHandler;
+    private DatabaseHandler databaseHandler = new DatabaseHandler();
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -166,6 +167,7 @@ public class GameController implements Initializable{
                 gamePane.getChildren().remove(food);
             });
             Pane.setVisible(true);
+            databaseHandler.PlayerScore(loginHandler.getCreatedInstance().getLogin(), player.getScore());
         }
     }
 

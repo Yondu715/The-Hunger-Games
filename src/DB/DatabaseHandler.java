@@ -23,6 +23,14 @@ public class DatabaseHandler extends Configs{
         return dbConnection;
     }
 
+    public void closeConnection(){
+        if (dbConnection != null){
+            try {
+                dbConnection.close();
+            } catch (Exception e) {}            
+        }
+    }
+
     public void signUpPlayer(String login, String password){
         String insert = "INSERT INTO " + Const.PLAYER_TABLE + "(" +
                 Const.PLAYER_LOGIN + "," + Const.PLAYER_PASSWORD + ")" +
@@ -35,6 +43,7 @@ public class DatabaseHandler extends Configs{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        closeConnection();
     }
 
     public Boolean getPlayer(String login, String password){
@@ -48,10 +57,14 @@ public class DatabaseHandler extends Configs{
             prSt.setString(1, login);
             prSt.setString(2, password);
             resSet = prSt.executeQuery();
-            if (resSet.next()) return true;
+            if (resSet.next()){
+                closeConnection();
+                return true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        closeConnection();
         return false;
     }
 
@@ -71,45 +84,59 @@ public class DatabaseHandler extends Configs{
         } catch (Exception e) {
             e.printStackTrace();
         }
+        closeConnection();
         return rating;
     }
 
     public void PlayerScore(String login, int score) {
 
         ResultSet resSet = null;
-
-        String select = "(SELECT " + Const.PLAYER_ID + " FROM " + Const.PLAYER_TABLE + " WHERE " +
-                Const.PLAYER_LOGIN + "='" + login + "')";
-
-        String select2 = "SELECT " + Const.PLAYER_SCORE_SCORE + " FROM " + Const.PLAYER_SCORE_TABLE + " WHERE " +
-                Const.PLAYER_SCORE_ID_PLAYER + "=?";
-
         Integer new_score = null;
+        Integer id_player = null;
+
+        String selectPlayer = "(SELECT " + Const.PLAYER_ID + " FROM " + Const.PLAYER_TABLE + " WHERE " +
+                Const.PLAYER_LOGIN + "=?)";
+        
         try {
-            PreparedStatement prSt = getDbConnection().prepareStatement(select2);
-            prSt.setString(1, select);
+            PreparedStatement prSt = getDbConnection().prepareStatement(selectPlayer);
+            prSt.setString(1, login);
+            resSet = prSt.executeQuery();
+            if (resSet.next()) {
+                id_player = resSet.getInt(Const.PLAYER_ID);
+            } else {
+                closeConnection();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();;
+        }
+        
+        String selectPlayer_score = "SELECT " + Const.PLAYER_SCORE_SCORE + " FROM " + Const.PLAYER_SCORE_TABLE + " WHERE " +
+                Const.PLAYER_SCORE_ID_PLAYER + "=?";
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(selectPlayer_score);
+            prSt.setInt(1, id_player);
             prSt.executeQuery();
             resSet = prSt.executeQuery();
             if (resSet.next()) {
                 new_score = resSet.getInt(Const.PLAYER_SCORE_SCORE);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();;
         }
 
-
-        if (Integer.parseInt(String.valueOf(score)) > Integer.parseInt(String.valueOf(new_score))) {
-            String insert = "INSERT INTO " + Const.PLAYER_SCORE_TABLE + "(" +
-                    Const.PLAYER_SCORE_ID_PLAYER + "," + Const.PLAYER_SCORE_SCORE + ")" +
-                    "VALUES(?,?)";
+        if (score> new_score) {
+            String update = "UPDATE " + Const.PLAYER_SCORE_TABLE + " SET " +
+                            Const.PLAYER_SCORE_SCORE + "=? WHERE " + Const.PLAYER_SCORE_ID_PLAYER + "=?";
             try {
-                PreparedStatement prSt = getDbConnection().prepareStatement(insert);
-                prSt.setString(1, select);
-                prSt.setString(2, String.valueOf(score));
+                PreparedStatement prSt = getDbConnection().prepareStatement(update);
+                prSt.setInt(1, score);
+                prSt.setInt(2, id_player);
                 prSt.executeUpdate();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+        closeConnection();
     }
 }
