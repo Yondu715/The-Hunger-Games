@@ -160,7 +160,6 @@ public class GameController implements Initializable{
     public void check_alive_players(){
         player.get_damage();
         if (!player.isAlive()){
-            gamePane.getChildren().remove(player);
             updateTimer.stop();
             clockThread.interrupt();
             endGame();
@@ -243,6 +242,7 @@ public class GameController implements Initializable{
 
     public void endGame(){
         txt_points.setText(txt_points.getText() + " " + player.getScore());
+        gamePane.getChildren().remove(player);
         foods.forEach((food) -> {
             gamePane.getChildren().remove(food);
         });
