@@ -36,14 +36,14 @@
             </children>
         </Pane>
         <Separator layoutY="113.0" prefHeight="0.0" prefWidth="970.0" />
-        <TextField fx:id="login_text" layoutX="305.0" layoutY="154.0" prefHeight="40.0" prefWidth="387.0" promptText="Login" />
-        <PasswordField fx:id="pass_text" layoutX="305.0" layoutY="225.0" prefHeight="40.0" prefWidth="387.0" promptText="Password" />
+        <TextField fx:id="login_text" layoutX="305.0" layoutY="154.0" prefHeight="40.0" prefWidth="387.0" promptText="Login" stylesheets="@style/utils/textfiled.css" />
+        <PasswordField fx:id="pass_text" layoutX="305.0" layoutY="225.0" prefHeight="40.0" prefWidth="387.0" promptText="Password" stylesheets="@style/utils/textfiled.css" />
         <Button fx:id="btn_enter_reg" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" layoutX="368.0" layoutY="385.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="260.0" stylesheets="@style/utils/fullpackstyling.css" text="Sign up" textAlignment="CENTER">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-      <PasswordField fx:id="pass_rep_txt" layoutX="304.0" layoutY="303.0" prefHeight="40.0" prefWidth="387.0" promptText="Repeat Password" />
+      <PasswordField fx:id="pass_rep_txt" layoutX="304.0" layoutY="303.0" prefHeight="40.0" prefWidth="387.0" promptText="Repeat Password" stylesheets="@style/utils/textfiled.css" />
       <Label fx:id="txt_massage" alignment="CENTER" layoutX="252.0" layoutY="468.0" prefHeight="40.0" prefWidth="490.0" textAlignment="CENTER" />
     </children>
 </AnchorPane>

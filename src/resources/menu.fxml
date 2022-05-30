@@ -28,7 +28,7 @@
                <children>
                   <ImageView fitHeight="144.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@style/icons/logo.png" />
+                        <Image url="@style/icons/logo2.png" />
                      </image>
                   </ImageView>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" stylesheets="@style/utils/fullpackstyling.css">
@@ -84,9 +84,9 @@
             </VBox>
          </children>
       </Pane>
-      <Pane fx:id="startPane" layoutX="207.0" opacity="0.0" prefHeight="530.0" prefWidth="762.0">
+      <Pane fx:id="startPane" layoutX="207.0" prefHeight="530.0" prefWidth="762.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="530.0" prefWidth="762.0" style="-fx-background-color: linear-gradient(to bottom, #9933ff 0%, #ff99cc 100%);">
+            <VBox alignment="CENTER" prefHeight="530.0" prefWidth="762.0">
                <children>
                   <Label text="The Hunger Games">
                      <font>
@@ -121,7 +121,7 @@
             </VBox>
          </children>
       </Pane>
-      <Pane fx:id="authPane" layoutX="207.0" prefHeight="530.0" prefWidth="762.0" stylesheets="@style/utils/fullpackstyling_2.css">
+      <Pane fx:id="authPane" layoutX="207.0" opacity="0.0" prefHeight="530.0" prefWidth="762.0" stylesheets="@style/utils/fullpackstyling_2.css">
          <children>
             <AnchorPane fx:id="Pane1" maxHeight="530.0" maxWidth="762.0" minHeight="530.0" minWidth="762.0" prefHeight="530.0" prefWidth="762.0" stylesheets="@style/utils/fullpackstyling.css">
                <children>
@@ -147,8 +147,8 @@
                      </children>
                   </Pane>
                   <Separator layoutY="113.0" prefHeight="0.0" prefWidth="762.0" />
-                  <TextField fx:id="login_text" layoutX="187.0" layoutY="190.0" prefHeight="40.0" prefWidth="388.0" promptText="Login" />
-                  <PasswordField fx:id="pass_text" layoutX="187.0" layoutY="276.0" prefHeight="40.0" prefWidth="388.0" promptText="Password" />
+                  <TextField fx:id="login_text" layoutX="187.0" layoutY="190.0" prefHeight="40.0" prefWidth="388.0" promptText="Login" stylesheets="@style/utils/textfiled.css" />
+                  <PasswordField fx:id="pass_text" layoutX="187.0" layoutY="276.0" prefHeight="40.0" prefWidth="388.0" promptText="Password" stylesheets="@style/utils/textfiled.css" />
                   <Button fx:id="btn_sign_in" alignment="CENTER" contentDisplay="CENTER" graphicTextGap="10.0" layoutX="251.0" layoutY="358.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="260.0" text="Sign In" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
@@ -173,7 +173,7 @@
                      </children>
                   </Pane>
                   <Separator layoutY="113.0" prefHeight="0.0" prefWidth="762.0" />
-                  <TableView fx:id="table" layoutX="-1.0" layoutY="116.0" prefHeight="414.0" prefWidth="762.0">
+                  <TableView fx:id="table" layoutY="116.0" prefHeight="414.0" prefWidth="760.0" stylesheets="@style/utils/tableviuw.css">
                      <columns>
                         <TableColumn fx:id="login_col" maxWidth="762.0" prefWidth="381.0" text="Login" />
                         <TableColumn fx:id="points_col" maxWidth="762.0" prefWidth="381.0" text="Points" />
