@@ -52,6 +52,7 @@ public class GameController implements Initializable{
     private Food removeFood = null;
     private ArrayList<Food> foods = new ArrayList<>();
     private HashMap<KeyCode, Boolean> keys = new HashMap<>();
+    private List<String> foodGifs = Arrays.asList("lapsha", "cake", "citchen", "cream", "salat", "sugar");
     private Character player;
     private AnimationTimer updateTimer;
     private Singleton loginHandler;
@@ -184,12 +185,14 @@ public class GameController implements Initializable{
     }
 
     public void food_spawn(){
-        double radius = 7;
+        int radius = 32;
         int random = (int)Math.floor(Math.random() * 210);
         double pos_x = Math.floor(radius + Math.random() * (gamePane.getWidth() - 2 * radius));
         double pos_y = Math.floor((topFrame.getHeight() + radius) + Math.random() * (gamePane.getHeight() - (topFrame.getHeight() + 2 * radius)));
         if (random == 7){
-            Food food = new Food(pos_x, pos_y, radius, Color.RED);
+            int gifIndex = (int)Math.floor(Math.random() * foodGifs.size());
+            Image img = new Image("\\resources\\gifs\\" + foodGifs.get(gifIndex) + ".gif");
+            Food food = new Food(pos_x, pos_y, radius, img);
             foods.add(food);
             gamePane.getChildren().add(food);
         }        

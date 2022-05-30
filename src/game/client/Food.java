@@ -1,13 +1,26 @@
 package src.game.client;
 
+import java.util.Arrays;
+import java.util.List;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 
-public class Food extends Circle {
+public class Food extends Pane {
     private int food_value = 5;
+    private Image img;
+    private int radius;
 
-    public Food(double pos_x, double pos_y, double radius, Paint fill){
-        super(pos_x, pos_y, radius, fill);
+    public Food(double pos_x, double pos_y, int radius, Image img){
+        this.radius = radius;
+        this.img = img;
+        setLayoutX(pos_x);
+        setLayoutY(pos_y);
+        ImageView imageView = new ImageView(this.img);
+        imageView.setViewport(new Rectangle2D(0, 0, this.radius, this.radius));
+        getChildren().addAll(imageView);
     }
 
     public int getFoodValue(){
