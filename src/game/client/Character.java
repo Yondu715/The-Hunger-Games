@@ -11,18 +11,20 @@ public class Character extends Pane{
     private int score = 0;
     private double pos_x;
     private double pos_y;
-    private int width = 64;
-    private int height = 64;
-    Image img = new Image("\\resources\\player.gif");
+    private int width = 57;
+    private int height = 53;
+    private Image img;
+    private ImageView imageView;
 
-    public Character(double pos_x, double pos_y){
+    public Character(double pos_x, double pos_y, Image img){
         this.pos_x = pos_x;
         this.pos_y = pos_y;  
+        this.img = img;
         setLayoutX(this.pos_x);
         setLayoutY(this.pos_y);
-        ImageView imageView = new ImageView(img);
-        imageView.setViewport(new Rectangle2D(0, 0, this.width, this.height));
-        getChildren().addAll(imageView);
+        this.imageView = new ImageView(this.img);
+        this.imageView.setViewport(new Rectangle2D(0, 0, this.width, this.height));
+        getChildren().addAll(this.imageView);
     }
 
     public double getPosX(){

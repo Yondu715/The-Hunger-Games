@@ -3,10 +3,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.ResultSet;
 
 public class DatabaseHandler extends Configs{
@@ -88,7 +86,18 @@ public class DatabaseHandler extends Configs{
         return rating;
     }
 
-    public void PlayerScore(String login, int score) {
+    public boolean loginPlayer(String login, String password){
+        try {
+            if (getPlayer(login, password)){
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void playerScore(String login, int score) {
 
         ResultSet resSet = null;
         Integer new_score = null;

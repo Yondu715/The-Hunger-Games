@@ -11,6 +11,7 @@ import javafx.scene.paint.Paint;
 public class Food extends Pane {
     private int food_value = 5;
     private Image img;
+    private ImageView imageView;
     private int radius;
 
     public Food(double pos_x, double pos_y, int radius, Image img){
@@ -18,9 +19,9 @@ public class Food extends Pane {
         this.img = img;
         setLayoutX(pos_x);
         setLayoutY(pos_y);
-        ImageView imageView = new ImageView(this.img);
-        imageView.setViewport(new Rectangle2D(0, 0, this.radius, this.radius));
-        getChildren().addAll(imageView);
+        this.imageView = new ImageView(this.img);
+        this.imageView.setViewport(new Rectangle2D(0, 0, this.radius, this.radius));
+        getChildren().addAll(this.imageView);
     }
 
     public int getFoodValue(){

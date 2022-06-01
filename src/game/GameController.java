@@ -40,7 +40,7 @@ public class GameController implements Initializable{
     @FXML
     Button btn_menu, btn_rest;
     @FXML
-    AnchorPane gamePane, Pane;
+    AnchorPane gamePane, gameOverPane;
     @FXML
     Rectangle topFrame;
     @FXML
@@ -49,34 +49,19 @@ public class GameController implements Initializable{
     ProgressBar playerHp;
 
     private Thread clockThread;
+    private AnimationTimer updateTimer;
+    private HashMap<KeyCode, Boolean> keys = new HashMap<>();
+
     private Food removeFood = null;
     private ArrayList<Food> foods = new ArrayList<>();
-    private HashMap<KeyCode, Boolean> keys = new HashMap<>();
-    private List<String> foodGifs = Arrays.asList("lapsha", "cake", "citchen", "cream", "salat", "sugar");
+    private List<String> foodGifs = Arrays.asList("lapsha", "cake", "citchen", "cream", "salat");
     private Character player;
-    private AnimationTimer updateTimer;
+
     private Singleton loginHandler;
     private DatabaseHandler databaseHandler = new DatabaseHandler();
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-
-        btn_menu.setOnAction(event -> {
-            try {
-                new SceneSwitcher().switchScene("\\resources\\menu.fxml");
-                Pane.getScene().getWindow().hide();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        btn_rest.setOnAction(event -> {
-            try {
-                new SceneSwitcher().switchScene("\\resources\\game.fxml");
-                Pane.getScene().getWindow().hide();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
 
         gamePane.setOnKeyPressed(event -> keys.put(event.getCode(), true));
         gamePane.setOnKeyReleased(event -> keys.put(event.getCode(), false));
@@ -97,16 +82,30 @@ public class GameController implements Initializable{
             }
         });
 
+        btn_menu.setOnAction(event -> {
+            try {
+                new SceneSwitcher().switchScene("\\resources\\menu.fxml");
+                gameOverPane.getScene().getWindow().hide();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        btn_rest.setOnAction(event -> {
+            try {
+                new SceneSwitcher().switchScene("\\resources\\game.fxml");
+                gameOverPane.getScene().getWindow().hide();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         updateTimer = new AnimationTimer() {        
             @Override
             public void handle(long arg0) {
                 update(); 
             }
         };
-        try {
-            player_spawn();
-        } catch (Exception e) {
-        } 
+        player_spawn();
         updateTimer.start();
         change_time(); 
     }
@@ -174,11 +173,12 @@ public class GameController implements Initializable{
     }
 
     public void player_spawn() {
-        int playerWidth = 64;
-        int playerHeight = 64;
-        double pos_x = Math.floor(playerWidth + Math.random() * (gamePane.getPrefWidth() - playerWidth));
+        int playerWidth = 57;
+        int playerHeight = 53;
+        double pos_x = Math.floor(playerWidth + Math.random() * (gamePane.getPrefWidth() - 2 * playerWidth));
         double pos_y = Math.floor((topFrame.getHeight() + playerHeight) + Math.random() * (gamePane.getPrefHeight() - topFrame.getHeight() - 2 * playerHeight));
-        player = new Character(pos_x, pos_y);
+        Image player_image = new Image("\\resources\\gifs\\player.gif");
+        player = new Character(pos_x, pos_y, player_image);
         playerHp.setProgress(player.getHp());
         gamePane.getChildren().add(player);
     }
@@ -204,10 +204,10 @@ public class GameController implements Initializable{
 
     public void change_time(){
         clock.setText("120");
-        int max_time = 120;
+        int time = Integer.parseInt(clock.getText());
         clockThread = new Thread(){
             public void run(){
-                for (int i = 0; i < max_time; i++){
+                for (int i = 0; i < time; i++){
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -246,8 +246,8 @@ public class GameController implements Initializable{
         foods.forEach((food) -> {
             gamePane.getChildren().remove(food);
         });
-        Pane.setVisible(true);
-        databaseHandler.PlayerScore(loginHandler.getCreatedInstance().getLogin(), player.getScore());
+        gameOverPane.setVisible(true);
+        databaseHandler.playerScore(loginHandler.getCreatedInstance().getLogin(), player.getScore());
     }
     
 }
