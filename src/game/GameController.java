@@ -54,7 +54,7 @@ public class GameController implements Initializable{
 
     private Food removeFood = null;
     private ArrayList<Food> foods = new ArrayList<>();
-    private List<String> foodGifs = Arrays.asList("lapsha", "cake", "citchen", "cream", "salat");
+    private List<String> foodGifs = Arrays.asList("lapsha", "cake", "kitchen", "cream", "salat");
     private Character player;
 
     private Singleton loginHandler;
