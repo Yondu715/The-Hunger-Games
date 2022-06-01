@@ -12,6 +12,6 @@
             <Image url="@style/icons/3D2b.gif" />
          </image>
       </ImageView>
-      <ProgressBar fx:id="progress" layoutX="204.0" layoutY="323.0" opacity="0.5" prefWidth="200.0" progress="0.0" style="-fx-border-color: linear-gradient(to bottom, #9933ff 0%, #ff99cc 100%);" />
+      <ProgressBar fx:id="progress" layoutX="204.0" layoutY="323.0" opacity="0.5" prefWidth="200.0" progress="0.0" style="-fx-accent: #ff00e6;" />
    </children>
 </AnchorPane>

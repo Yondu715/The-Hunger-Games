@@ -175,8 +175,8 @@
                   <Separator layoutY="113.0" prefHeight="0.0" prefWidth="762.0" />
                   <TableView fx:id="table" layoutY="116.0" prefHeight="414.0" prefWidth="760.0" stylesheets="@style/utils/tableviuw.css">
                      <columns>
-                        <TableColumn fx:id="login_col" maxWidth="762.0" prefWidth="381.0" text="Login" />
-                        <TableColumn fx:id="points_col" maxWidth="762.0" prefWidth="381.0" text="Points" />
+                        <TableColumn fx:id="login_col" maxWidth="762.0" prefWidth="379.0" text="Login" />
+                        <TableColumn fx:id="points_col" maxWidth="762.0" prefWidth="379.0" text="Points" />
                      </columns>
                   </TableView>
                </children>
