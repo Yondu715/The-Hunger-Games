@@ -250,6 +250,7 @@ public class GameController implements Initializable{
     }
 
     public void endGame(){
+        txt_over.setText(loginHandler.getCreatedInstance().getLogin());
         txt_points.setText(txt_points.getText() + " " + player.getScore());
         gamePane.getChildren().remove(player);
         foods.forEach((food) -> {
