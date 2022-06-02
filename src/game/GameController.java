@@ -40,7 +40,7 @@ public class GameController implements Initializable{
     @FXML
     Button btn_menu, btn_rest;
     @FXML
-    AnchorPane gamePane, gameOverPane;
+    AnchorPane gamePane, gameOverPane, gameOverPanel;
     @FXML
     Rectangle topFrame;
     @FXML
@@ -72,6 +72,9 @@ public class GameController implements Initializable{
             @Override
             public void changed(ObservableValue<? extends Bounds> observableValue, Bounds bounds, Bounds newBounds){
                 topFrame.setWidth(gamePane.getWidth());
+                gameOverPane.setMinWidth(gamePane.getWidth());
+                gameOverPane.setMinHeight(gamePane.getHeight());
+                gameOverPanel.setMinWidth(gamePane.getWidth());
                 if (bounds.getHeight() != 0) {
                     topFrame.setHeight(topFrame.getHeight() + (newBounds.getHeight() - bounds.getHeight()) * 0.01);
                     gif1.setLayoutX(gif1.getLayoutX() + (newBounds.getWidth() - bounds.getWidth()) * 0.1);
@@ -87,15 +90,13 @@ public class GameController implements Initializable{
                 playerHp.setMinHeight(topFrame.getHeight() / 2);
                 playerScore.setLayoutX(playerHp.getMinWidth() + 40.5);
                 playerScore.setMinHeight(topFrame.getHeight());
-                gameOverPane.setMinWidth(gamePane.getWidth());
-                gameOverPane.setMinHeight(gamePane.getHeight());
-                labelTitle.setLayoutX((gamePane.getWidth() - labelTitle.getWidth()) / 2);
-                txt_message.setLayoutX((gamePane.getWidth() - txt_message.getWidth()) / 2);
-                txt_points.setLayoutX((gamePane.getWidth() - txt_points.getWidth()) / 2);
-                txt_over.setLayoutX((gamePane.getWidth() - txt_over.getWidth()) / 2);
-                txt_message.setLayoutY(gamePane.getHeight() * 0.275);
+                labelTitle.setLayoutX((gamePane.getWidth() - labelTitle.getPrefWidth()) / 2);
+                txt_message.setLayoutX((gamePane.getWidth() - txt_message.getPrefWidth()) / 2);
+                txt_points.setLayoutX((gamePane.getWidth() - txt_points.getPrefWidth()) / 2);
+                txt_over.setLayoutX((gamePane.getWidth() - txt_over.getPrefWidth()) / 2);
+                txt_over.setLayoutY(gamePane.getHeight() * 0.275);
                 txt_points.setLayoutY(gamePane.getHeight() * 0.475);
-                txt_over.setLayoutY(gamePane.getHeight() * 0.675);
+                txt_message.setLayoutY(gamePane.getHeight() * 0.675);
             }
         });
 
