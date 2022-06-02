@@ -19,6 +19,7 @@ public class SceneSwitcher {
         Stage stage = new Stage();
         Scene scene = new Scene(gamePane);
         scene.getRoot().requestFocus();
+        stage.getIcons().add(new Image("resources\\style\\icons\\titleIco.png"));
         stage.setScene(scene);
         stage.setTitle("The Hunger Games");
         stage.centerOnScreen();
