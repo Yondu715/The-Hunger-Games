@@ -75,6 +75,8 @@ public class GameController implements Initializable{
                 gameOverPane.setMinWidth(gamePane.getWidth());
                 gameOverPane.setMinHeight(gamePane.getHeight());
                 gameOverPanel.setMinWidth(gamePane.getWidth());
+                image_game_back.setFitWidth(gamePane.getWidth());
+                image_game_back.setFitHeight(gamePane.getWidth() * 2.2);
                 if (bounds.getHeight() != 0) {
                     topFrame.setHeight(topFrame.getHeight() + (newBounds.getHeight() - bounds.getHeight()) * 0.01);
                     gif1.setLayoutX(gif1.getLayoutX() + (newBounds.getWidth() - bounds.getWidth()) * 0.1);
