@@ -16,6 +16,7 @@ public class Main extends Application{
         AnchorPane root = FXMLLoader.load(getClass().getResource("\\resources\\splash.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
     }

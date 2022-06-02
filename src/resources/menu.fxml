@@ -28,7 +28,7 @@
                <children>
                   <ImageView fitHeight="144.0" fitWidth="159.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@style/icons/logo2.png" />
+                        <Image url="@style/icons/logo3.gif" />
                      </image>
                   </ImageView>
                   <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0" stylesheets="@style/utils/fullpackstyling.css">
@@ -93,7 +93,7 @@
                         <Font size="48.0" />
                      </font>
                   </Label>
-                  <Label text="&quot;Run or Die&quot;">
+                  <Label style="-fx-text-fill: #33cccc;" text="&quot;Run or Die&quot;">
                      <font>
                         <Font size="36.0" />
                      </font>
@@ -114,7 +114,7 @@
                   </VBox>
                   <VBox alignment="BOTTOM_CENTER" prefHeight="63.0" prefWidth="762.0">
                      <children>
-                        <Label text="Our GitHub : https://github.com/MaximVorobev/The-Hunger-Games" />
+                        <Label style="-fx-text-fill: #33cccc;" text="Our GitHub : https://github.com/MaximVorobev/The-Hunger-Games" />
                      </children>
                   </VBox>
                </children>

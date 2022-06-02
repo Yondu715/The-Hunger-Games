@@ -30,11 +30,13 @@ public class SceneSwitcher {
                 Platform.exit();
                 System.exit(0);
             });
+            stage.setResizable(false);
         }
         if (scenePath == "\\resources\\Registr.fxml") {
             stage.setOnCloseRequest(event -> {
                 Platform.exit();
                 System.exit(0);
+                stage.setResizable(false);
             });
         }
         stage.show();

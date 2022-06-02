@@ -7,11 +7,11 @@
 
 <AnchorPane fx:id="splashPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.SplashController">
    <children>
-      <ImageView fitHeight="876.0" fitWidth="610.0" layoutX="-1.0" layoutY="-464.0" pickOnBounds="true" preserveRatio="true">
+      <ProgressBar fx:id="progress" layoutX="204.0" layoutY="323.0" opacity="0.5" prefWidth="200.0" progress="0.0" style="-fx-accent: #ff00e6;" />
+      <ImageView fitHeight="302.0" fitWidth="342.0" layoutX="153.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@style/icons/3D2b.gif" />
+            <Image url="@style/icons/splash.gif" />
          </image>
       </ImageView>
-      <ProgressBar fx:id="progress" layoutX="204.0" layoutY="323.0" opacity="0.5" prefWidth="200.0" progress="0.0" style="-fx-accent: #ff00e6;" />
    </children>
 </AnchorPane>
