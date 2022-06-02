@@ -10,6 +10,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import src.SceneSwitcher;
+import src.DB.DatabaseHandler;
 
 public class SplashController implements Initializable{
     @FXML
@@ -43,13 +44,14 @@ public class SplashController implements Initializable{
                 } catch (Exception e) {}
                 Platform.runLater(new Runnable() {
                     public void run(){
-                        try {
-                            new SceneSwitcher().switchScene("\\resources\\menu.fxml");
-                            splashPane.getScene().getWindow().hide();
-                        } catch (IOException e1) {} 
+                        new SceneSwitcher().switchScene("\\resources\\menu.fxml");
+                        splashPane.getScene().getWindow().hide();
                     }
                 });
             }
-        }.start();;
+        }.start();
+        new Thread(
+            () -> {DatabaseHandler dbHandler = DatabaseHandler.getInstance();}
+        ).start();
     }
 }

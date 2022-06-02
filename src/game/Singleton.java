@@ -1,7 +1,7 @@
 package src.game;
 
 public class Singleton {
-    private static Singleton instance;
+    private static Singleton instance = null;
     private String login;
 
     private Singleton(String login){
@@ -17,6 +17,10 @@ public class Singleton {
 
     public static Singleton getCreatedInstance(){
         return instance;
+    }
+
+    public void setLogin(String login){
+        this.login = login;
     }
 
     public String getLogin(){

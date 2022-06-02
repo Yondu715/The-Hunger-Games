@@ -9,8 +9,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SceneSwitcher {
-    public void switchScene(String scenePath) throws IOException{
-        AnchorPane gamePane = FXMLLoader.load(getClass().getResource(scenePath));
+    public void switchScene(String scenePath){
+        AnchorPane gamePane = null;
+        try {
+            gamePane = FXMLLoader.load(getClass().getResource(scenePath));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Stage stage = new Stage();
         Scene scene = new Scene(gamePane);
         scene.getRoot().requestFocus();

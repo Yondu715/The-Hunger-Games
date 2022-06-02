@@ -5,6 +5,8 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,13 +27,14 @@ import src.resources.animations.Shake;
 
 public class MenuController {
 
-    public AnchorPane Pane;
-
     @FXML
     private Button btn_auth, btn_rating, btn_start, btn_reg, btn_sign_in;
 
     @FXML
     private Label txt_massage, status;
+
+    @FXML
+    private AnchorPane menuPane;
 
     @FXML
     private Pane startPane, authPane, ratePane;
@@ -50,8 +53,8 @@ public class MenuController {
     @FXML
     private TableColumn<Player, Integer> points_col;
 
-    DatabaseHandler dbHandler = new DatabaseHandler();
-    Singleton loginHandler;
+    DatabaseHandler dbHandler = DatabaseHandler.getInstance();
+    Singleton loginHandler = Singleton.getCreatedInstance();
 
     @FXML
     void initialize(){
@@ -64,29 +67,43 @@ public class MenuController {
         login_col.setCellValueFactory(new PropertyValueFactory<Player, String>("login"));
         points_col.setCellValueFactory(new PropertyValueFactory<Player, Integer>("points"));
 
-        try {
-            if (loginHandler.getCreatedInstance() != null){
-                status.setText(loginHandler.getCreatedInstance().getLogin());
-            }
-        } catch (Exception e) {}
+        if (loginHandler.getCreatedInstance() != null){
+            status.setText(loginHandler.getLogin());
+        }
 
         btn_sign_in.setOnAction(event -> {
             String login = login_text.getText().trim();
             String password = pass_text.getText().trim();
 
-            if (!login.equals("") && !password.equals("") && dbHandler.loginPlayer(login, password)){
-                login_text.clear();
-                pass_text.clear();
-                status.setText(login);
-                txt_massage.setText("");
-                loginHandler.getInstance(login);
-            } else {
-                Shake playerLoginAnim = new Shake(login_text);
-                Shake playerPasswordAnim = new Shake(pass_text);
-                playerLoginAnim.playAnim();
-                playerPasswordAnim.playAnim();
-                txt_massage.setText("User not found");
-            }
+            new Thread(
+                () ->  {
+                    if (dbHandler.loginPlayer(login, password)){
+                        if (loginHandler.getCreatedInstance() != null){
+                            loginHandler.setLogin(login);
+                        } else {
+                            loginHandler = Singleton.getInstance(login);
+                        }
+                        Platform.runLater(new Runnable() {
+                            public void run(){
+                                login_text.clear();
+                                pass_text.clear();
+                                status.setText(login);
+                                txt_massage.setText("");
+                            }
+                        });
+                    } else if (!login.equals("") && !password.equals("") && !dbHandler.loginPlayer(login, password)){
+                        Platform.runLater(new Runnable() {
+                            public void run(){
+                                Shake playerLoginAnim = new Shake(login_text);
+                                Shake playerPasswordAnim = new Shake(pass_text);
+                                playerLoginAnim.playAnim();
+                                playerPasswordAnim.playAnim();
+                                txt_massage.setText("User not found");
+                            }
+                        });
+                    }
+                }
+            ).start();
 
             if (login.equals("") && !password.equals("")) {
                 Shake playerLoginAnim = new Shake(login_text);
@@ -113,12 +130,8 @@ public class MenuController {
                 ratePane.setVisible(false);
                 authPane.setVisible(true);
             } else {
-                try {
-                    new SceneSwitcher().switchScene("\\resources\\game.fxml");
-                    Pane.getScene().getWindow().hide();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                new SceneSwitcher().switchScene("\\resources\\game.fxml");
+                menuPane.getScene().getWindow().hide();
             } 
         });
 
@@ -136,18 +149,21 @@ public class MenuController {
         });
         
         btn_reg.setOnAction(event -> {
-            try {
-                new SceneSwitcher().switchScene("\\resources\\Registr.fxml");
-                Pane.getScene().getWindow().hide();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new SceneSwitcher().switchScene("\\resources\\Registr.fxml");
+            menuPane.getScene().getWindow().hide();
         });
     }
 
     public void showRating(){
-        ObservableList<Player> rating = FXCollections.observableArrayList();
-        rating = dbHandler.getRating();
-        table.setItems(rating);
+        new Thread(){
+            public void run(){
+                final ObservableList<Player> rating = dbHandler.getRating();
+                Platform.runLater(new Runnable() {
+                    public void run(){
+                        table.setItems(rating);
+                    }
+                });
+            }
+        }.start();
     }
 }
