@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gamePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.GameController">
+<AnchorPane fx:id="gamePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.GameController">
    <children>
       <ImageView fx:id="image_game_back" fitHeight="1052.0" fitWidth="1305.0" layoutX="-14.0" layoutY="-408.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -34,9 +34,9 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="gameOverPane" layoutX="-1.0" maxHeight="530.0" maxWidth="969.0" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" visible="false">
+      <AnchorPane fx:id="gameOverPane" maxHeight="530.0" maxWidth="969.0" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" visible="false">
          <children>
-            <AnchorPane prefHeight="114.0" prefWidth="970.0" style="-fx-background-color: #E5E5E5;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0">
+            <AnchorPane fx:id="gameOverPanel" prefHeight="114.0" prefWidth="970.0" style="-fx-background-color: #E5E5E5;">
                <children>
                   <Button fx:id="btn_rest" alignment="BASELINE_LEFT" graphicTextGap="10.0" layoutX="783.0" layoutY="39.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="173.0" stylesheets="@style/utils/fullpackstyling_2.css" text="Restart" AnchorPane.rightAnchor="14.0">
                      <padding>
@@ -50,7 +50,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label fx:id="labelTitle" layoutX="373.0" layoutY="22.0" text="GameOver">
+                  <Label fx:id="labelTitle" layoutX="373.0" layoutY="22.0" prefHeight="70.0" prefWidth="225.0" text="GameOver">
                      <font>
                         <Font size="48.0" />
                      </font>
@@ -75,12 +75,12 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label fx:id="txt_points" alignment="CENTER" layoutX="346.0" layoutY="282.0" prefHeight="54.0" prefWidth="274.0" text="Your points:">
+            <Label fx:id="txt_points" alignment="CENTER" layoutX="348.0" layoutY="282.0" prefHeight="54.0" prefWidth="274.0" text="Your points:">
                <font>
                   <Font size="36.0" />
                </font>
             </Label>
-            <Label fx:id="txt_message" alignment="CENTER" layoutX="421.0" layoutY="384.0" text="Nice try.">
+            <Label fx:id="txt_message" alignment="CENTER" layoutX="421.0" layoutY="384.0" prefHeight="53.0" prefWidth="131.0" text="Nice try.">
                <font>
                   <Font size="36.0" />
                </font>
