@@ -1,10 +1,15 @@
 package src.game;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -58,6 +63,15 @@ public class MenuController {
 
     @FXML
     void initialize(){
+        try {
+            File soundFile = new File("resources\\music\\1.wav");
+            AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(ais);
+            clip.setFramePosition(0);
+            clip.start();	
+        } catch (Exception e) {}
+
         startPane.setVisible(true);
         startPane.setOpacity(1);
         ratePane.setVisible(false);
