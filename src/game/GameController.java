@@ -48,7 +48,7 @@ public class GameController implements Initializable{
     @FXML
     ProgressBar playerHp;
     @FXML
-    ImageView gif1, gif2, gif3;
+    ImageView gif1, gif2, gif3, image_game_back;
 
     private Thread clockThread;
     private AnimationTimer updateTimer;
@@ -56,7 +56,7 @@ public class GameController implements Initializable{
 
     private Food removeFood = null;
     private ArrayList<Food> foods = new ArrayList<>();
-    private List<String> foodGifs = Arrays.asList("lapsha", "cake", "kitchen", "cream", "salat");
+    private List<String> foodGifs = Arrays.asList("lapsha-unscreen", "cake-unscreen", "kitchen-unscreen", "cream-unscreen", "salat-unscreen");
     private Character player;
 
     private Singleton loginHandler;
@@ -186,7 +186,7 @@ public class GameController implements Initializable{
         int playerHeight = 53;
         double pos_x = Math.floor(playerWidth + Math.random() * (gamePane.getPrefWidth() - 2 * playerWidth));
         double pos_y = Math.floor((topFrame.getHeight() + playerHeight) + Math.random() * (gamePane.getPrefHeight() - topFrame.getHeight() - 2 * playerHeight));
-        Image player_image = new Image("\\resources\\gifs\\player.gif");
+        Image player_image = new Image("\\resources\\gifs\\player-unscreen.gif");
         player = new Character(pos_x, pos_y, player_image);
         playerHp.setProgress(player.getHp());
         gamePane.getChildren().add(player);
@@ -250,6 +250,7 @@ public class GameController implements Initializable{
     }
 
     public void endGame(){
+        image_game_back.setVisible(false);
         txt_over.setText(loginHandler.getCreatedInstance().getLogin());
         txt_points.setText(txt_points.getText() + " " + player.getScore());
         gamePane.getChildren().remove(player);
