@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Pane" maxHeight="530.0" maxWidth="969.0" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.MenuController">
+<AnchorPane fx:id="menuPane" maxHeight="530.0" maxWidth="969.0" minHeight="530.0" minWidth="969.0" prefHeight="530.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.game.MenuController">
    <children>
       <Pane style="-fx-background-color: #E5E5E5;">
          <children>
@@ -175,8 +175,8 @@
                   <Separator layoutY="113.0" prefHeight="0.0" prefWidth="762.0" />
                   <TableView fx:id="table" layoutY="116.0" prefHeight="414.0" prefWidth="760.0" stylesheets="@style/utils/tableviuw.css">
                      <columns>
-                        <TableColumn fx:id="login_col" maxWidth="762.0" prefWidth="379.0" text="Login" />
-                        <TableColumn fx:id="points_col" maxWidth="762.0" prefWidth="379.0" text="Points" />
+                        <TableColumn fx:id="login_col" maxWidth="762.0" prefWidth="378.0" text="Login" />
+                        <TableColumn fx:id="points_col" maxWidth="762.0" prefWidth="378.0" text="Points" />
                      </columns>
                   </TableView>
                </children>

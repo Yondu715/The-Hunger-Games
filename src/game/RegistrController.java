@@ -17,7 +17,8 @@ import src.resources.animations.Shake;
 
 public class RegistrController {
 
-    public AnchorPane Pane;
+    @FXML
+    private AnchorPane registrPane;
 
     @FXML
     public Label txt_massage;
@@ -42,30 +43,24 @@ public class RegistrController {
         btn_enter_reg.setOnAction(event -> signUpNewPlayer());
 
         btn_back_reg.setOnAction(event -> {
-            try {
-                new SceneSwitcher().switchScene("\\resources\\menu.fxml");
-                Pane.getScene().getWindow().hide();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new SceneSwitcher().switchScene("\\resources\\menu.fxml");
+            registrPane.getScene().getWindow().hide();
         });
     }
 
     private void signUpNewPlayer() {
-        DatabaseHandler dbHandler = new DatabaseHandler();
+        DatabaseHandler dbHandler = DatabaseHandler.getInstance();
 
         String login = login_text.getText();
         String password = pass_text.getText();
         String password_rep = pass_rep_txt.getText();
 
         if (!login.equals("") & !password.equals("") & !password_rep.equals("") & password.equals(password_rep)){
-            dbHandler.signUpPlayer(login, password);
-            try {
-                new SceneSwitcher().switchScene("\\resources\\menu.fxml");
-                Pane.getScene().getWindow().hide();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new Thread(
+                () -> dbHandler.signUpPlayer(login, password)
+            ).start();
+            new SceneSwitcher().switchScene("\\resources\\menu.fxml");
+            registrPane.getScene().getWindow().hide();
         } else {
             Shake playerLoginAnim = new Shake(login_text);
             Shake playerPasswordAnim = new Shake(pass_text);

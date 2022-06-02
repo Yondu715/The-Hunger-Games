@@ -44,9 +44,11 @@ public class GameController implements Initializable{
     @FXML
     Rectangle topFrame;
     @FXML
-    Label clock, playerScore, txt_points, txt_message;
+    Label clock, playerScore, txt_points, txt_message, labelTitle, txt_over;
     @FXML
     ProgressBar playerHp;
+    @FXML
+    ImageView gif1, gif2, gif3;
 
     private Thread clockThread;
     private AnimationTimer updateTimer;
@@ -58,7 +60,7 @@ public class GameController implements Initializable{
     private Character player;
 
     private Singleton loginHandler;
-    private DatabaseHandler databaseHandler = new DatabaseHandler();
+    private DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
@@ -72,6 +74,12 @@ public class GameController implements Initializable{
                 topFrame.setWidth(gamePane.getWidth());
                 if (bounds.getHeight() != 0) {
                     topFrame.setHeight(topFrame.getHeight() + (newBounds.getHeight() - bounds.getHeight()) * 0.01);
+                    gif1.setLayoutX(gif1.getLayoutX() + (newBounds.getWidth() - bounds.getWidth()) * 0.1);
+                    gif2.setLayoutX(gif2.getLayoutX() + (newBounds.getWidth() - bounds.getWidth()) * 0.75);
+                    gif3.setLayoutX(gif3.getLayoutX() + (newBounds.getWidth() - bounds.getWidth()) * 0.6);
+                    gif1.setLayoutY(gif1.getLayoutY() + (newBounds.getHeight() - bounds.getHeight()) * 0.5);
+                    gif2.setLayoutY(gif2.getLayoutY() + (newBounds.getHeight() - bounds.getHeight()) * 0.6);
+                    gif3.setLayoutY(gif3.getLayoutY() + (newBounds.getHeight() - bounds.getHeight()) * 0.8);
                 }
                 clock.setLayoutX(topFrame.getWidth() / 2);
                 clock.setMinHeight(topFrame.getHeight());
@@ -79,35 +87,36 @@ public class GameController implements Initializable{
                 playerHp.setMinHeight(topFrame.getHeight() / 2);
                 playerScore.setLayoutX(playerHp.getMinWidth() + 40.5);
                 playerScore.setMinHeight(topFrame.getHeight());
+                gameOverPane.setMinWidth(gamePane.getWidth());
+                gameOverPane.setMinHeight(gamePane.getHeight());
+                labelTitle.setLayoutX((gamePane.getWidth() - labelTitle.getWidth()) / 2);
+                txt_message.setLayoutX((gamePane.getWidth() - txt_message.getWidth()) / 2);
+                txt_points.setLayoutX((gamePane.getWidth() - txt_points.getWidth()) / 2);
+                txt_over.setLayoutX((gamePane.getWidth() - txt_over.getWidth()) / 2);
+                txt_message.setLayoutY(gamePane.getHeight() * 0.275);
+                txt_points.setLayoutY(gamePane.getHeight() * 0.475);
+                txt_over.setLayoutY(gamePane.getHeight() * 0.675);
             }
         });
 
         btn_menu.setOnAction(event -> {
-            try {
-                new SceneSwitcher().switchScene("\\resources\\menu.fxml");
-                gameOverPane.getScene().getWindow().hide();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new SceneSwitcher().switchScene("\\resources\\menu.fxml");
+            gameOverPane.getScene().getWindow().hide();
         });
         btn_rest.setOnAction(event -> {
-            try {
-                new SceneSwitcher().switchScene("\\resources\\game.fxml");
-                gameOverPane.getScene().getWindow().hide();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            new SceneSwitcher().switchScene("\\resources\\game.fxml");
+            gameOverPane.getScene().getWindow().hide();
         });
 
+        player_spawn();
+        change_time(); 
         updateTimer = new AnimationTimer() {        
             @Override
             public void handle(long arg0) {
                 update(); 
             }
         };
-        player_spawn();
         updateTimer.start();
-        change_time(); 
     }
 
     public void update(){
@@ -247,7 +256,9 @@ public class GameController implements Initializable{
             gamePane.getChildren().remove(food);
         });
         gameOverPane.setVisible(true);
-        databaseHandler.playerScore(loginHandler.getCreatedInstance().getLogin(), player.getScore());
+        new Thread(
+            () -> databaseHandler.playerScore(loginHandler.getCreatedInstance().getLogin(), player.getScore())
+        ).start();
     }
     
 }

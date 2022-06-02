@@ -3,14 +3,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.sql.ResultSet;
 
 public class DatabaseHandler extends Configs{
-    Connection dbConnection;
+    private static DatabaseHandler instance;
+    private Connection dbConnection;
 
-    public Connection getDbConnection(){
+    private DatabaseHandler(){}
+    public static DatabaseHandler getInstance(){
+        if (instance == null){
+            instance = new DatabaseHandler();
+        }
+        return instance;
+    }
+
+    private Connection getDbConnection(){
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
